@@ -1,0 +1,228 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Header Section */
+.readmoreHeader {
+  font-family: 'Garamond', sans-serif;
+  background-color: #ff8c42;
+  height: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  color: white;
+  position: relative;
+}
+
+.readmoreReceipts {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 2px solid white;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.readmoreReceipts:hover {
+  background-color: white;
+  color: #ff8c42;
+}
+
+.readmoreAdded {
+  color: white;
+  text-decoration: none;
+  padding: 10px 30px;
+  border: 2px solid white;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  position: absolute;
+  top: 20px;
+  right: 180px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.readmoreAdded:hover {
+  background-color: white;
+  color: #ff8c42;
+}
+
+
+.readmoreHeaderContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.readmoreFoodImage img {
+  width: 400px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-left: 120px;
+}
+
+.readmoreInfo {
+  flex: 1;
+  margin-left: 70px;
+  padding: 20px;
+}
+
+.readmoreInfo h1 {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.readmoreInfo p {
+  font-size: 18px;
+}
+
+/* Description Section */
+.readmoreDescriptionBox {
+  background-color: #fff3e0;
+  color: #333;
+  padding: 70px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 1200px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.readmoreDescriptionBox h2 {
+  font-size: 44px;
+  margin-bottom: 40px;
+}
+
+.readmoreDescriptionBox p {
+  font-size: 22px;
+}
+
+/* Cards Section */
+.readmoreCardsContainer {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 30px;
+}
+
+.readmoreCard {
+  background-color: #eceff7;
+  width: 290px;
+  height: 290px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.readmoreCard .icon {
+  margin-bottom: 10px;
+}
+
+.readmoreCard img {
+  width: 220px;
+  height: 180px;
+}
+
+.readmoreCard p {
+  color: #3f3d56;
+  font-size: 1rem;
+}
+
+.readmoreCard:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer Section */
+.readmoreFooterDark {
+  padding: 50px 0;
+  color: #e3ebf5;
+  background-color: #ff8c42;
+  margin-top: 35px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.readmoreFooterDark h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.readmoreFooterDark ul {
+  padding: 0;
+  list-style: none;
+  line-height: 1.6;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+.readmoreFooterDark ul a {
+  color: #e3ebf5;
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.readmoreFooterDark ul a:hover {
+  opacity: 1;
+}
+
+.readmoreFooterDark .readmoreText p {
+  opacity: 0.8;
+  color: #d1dbe8;
+  margin-bottom: 0;
+}
+
+.readmoreFooterDark .readmoreSocial {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.readmoreFooterDark .readmoreSocial > a {
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+  margin: 0 8px;
+  color: #e3ebf5;
+  background-color: #ff8c42;
+  opacity: 0.75;
+}
+
+.readmoreFooterDark .readmoreSocial > a:hover {
+  opacity: 1;
+  background-color: #d7a17a;
+}
+
+.readmoreFooterDark .readmoreCopyright {
+  text-align: center;
+  padding-top: 24px;
+  opacity: 0.5;
+  font-size: 13px;
+  margin-bottom: 0;
+  color: #d1dbe8;
+}

@@ -1,0 +1,190 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .recipeBody {
+          font-family: 'Courier New', sans-serif;
+          background-image: url('img/background.jpg');
+          background-size: contain;
+          
+        }
+        
+        .recipeBody::-webkit-scrollbar {
+          display: none; /* Hide the scrollbar */
+        }
+        
+
+        .header {
+            background-color: #ff8c42;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 30px;
+            font-family: 'Lucida Handwriting', sans-serif;
+            position:relative;
+        }
+
+        .Recipescontainer {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #e3e0d9;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            
+        }
+
+        h2 {
+            text-align: center;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border: 2px solid #ff8c42;
+        }
+
+    .recipe{
+        margin-bottom: 20px;
+    }
+        
+        .add-btn {
+            background-color: #ff8c42;
+            color: white;
+            padding: 15px;
+            border: none;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-btn:hover {
+            background-color: #e6762f;
+        }
+
+        .success-message {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 20px;
+            border-radius: 10px;
+        }
+
+        /* Box style after recipe is added */
+        .success-message.active {
+            display: block;
+        }
+
+
+        .readmoreFooterDark {
+            padding: 50px 0;
+            color: #e3ebf5;
+            background-color: #ff8c42;
+            margin-top: 35px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          }
+          
+          .readmoreFooterDark h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-weight: bold;
+            font-size: 16px;
+            color: #ffffff;
+          }
+          
+          .readmoreFooterDark ul {
+            padding: 0;
+            list-style: none;
+            line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 0;
+          }
+          
+          .readmoreFooterDark ul a {
+            color: #e3ebf5;
+            text-decoration: none;
+            opacity: 0.8;
+          }
+          
+          .readmoreFooterDark ul a:hover {
+            opacity: 1;
+          }
+          
+          .readmoreFooterDark .readmoreText p {
+            opacity: 0.8;
+            color: #d1dbe8;
+            margin-bottom: 0;
+          }
+          
+          .readmoreFooterDark .readmoreSocial {
+            text-align: center;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+          }
+          
+          .readmoreFooterDark .readmoreSocial > a {
+            font-size: 20px;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            display: inline-block;
+            text-align: center;
+            border-radius: 50%;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+            margin: 0 8px;
+            color: #e3ebf5;
+            background-color: #ff8c42;
+            opacity: 0.75;
+          }
+          
+          .readmoreFooterDark .readmoreSocial > a:hover {
+            opacity: 1;
+            background-color: #d7a17a;
+          }
+          
+          .readmoreFooterDark .readmoreCopyright {
+            text-align: center;
+            padding-top: 24px;
+            opacity: 0.5;
+            font-size: 13px;
+            margin-bottom: 0;
+            color: #d1dbe8;
+          }
+          
+        
+
+        
+        

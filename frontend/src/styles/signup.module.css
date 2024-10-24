@@ -1,0 +1,166 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  
+}
+
+.backgroundWrapper {
+  background-image: url('img/background.jpg');
+  background-size: cover; /* Ensure the image covers the entire area */
+  background-position: center; /* Center the image */
+  min-height: 100vh; /* Minimum height of 100% of the viewport height */
+  display: flex; /* Allow for flexible content alignment */
+  flex-direction: column; /* Stack children vertically */
+  justify-content: flex-start; /* Align children at the top */
+}
+
+.signupContainer {
+  max-width: 500px;
+  width: 100%;
+  margin: 130px auto; /* Center horizontally and add margin at the top */
+  border-radius: 12px;
+  padding: 30px;
+  background: #ff8c42;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  
+}
+
+.signupHeader {
+  font-size: 28px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.signupForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.signupInput {
+  height: 45px;
+  outline: none;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  font-size: 16px;
+  color: #333;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.signupInput:focus {
+  border-color: #ffae2c;
+  box-shadow: 0 0 5px rgba(64, 112, 244, 0.5);
+}
+
+.signupCheckbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.signupCheckboxInput {
+  margin-right: 10px;
+}
+
+.signupCheckboxLabel {
+  color: #fff;
+}
+
+.signupButton {
+  margin-top: 10px;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #f67b23;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.signupButton:hover {
+  background: #fff1e7;
+}
+
+.readmoreFooterDark {
+  padding: 50px 0;
+  color: #e3ebf5;
+  background-color: #ff8c42;
+  margin-top: 35px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.readmoreFooterDark h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.readmoreFooterDark ul {
+  padding: 0;
+  list-style: none;
+  line-height: 1.6;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+.readmoreFooterDark ul a {
+  color: #e3ebf5;
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.readmoreFooterDark ul a:hover {
+  opacity: 1;
+}
+
+.readmoreFooterDark .readmoreText p {
+  opacity: 0.8;
+  color: #d1dbe8;
+  margin-bottom: 0;
+}
+
+.readmoreFooterDark .readmoreSocial {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.readmoreFooterDark .readmoreSocial > a {
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+  margin: 0 8px;
+  color: #e3ebf5;
+  background-color: #ff8c42;
+  opacity: 0.75;
+}
+
+.readmoreFooterDark .readmoreSocial > a:hover {
+  opacity: 1;
+  background-color: #d7a17a;
+}
+
+.readmoreFooterDark .readmoreCopyright {
+  text-align: center;
+  padding-top: 24px;
+  opacity: 0.5;
+  font-size: 13px;
+  margin-bottom: 0;
+  color: #d1dbe8;
+}

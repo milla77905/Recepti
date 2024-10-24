@@ -1,0 +1,300 @@
+
+.Mealsheader {
+    background-color: #ff8c42;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    color: white;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+
+.logo {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid white;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    position: absolute;
+    top: 20px;
+    right: 190px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.receipts {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid white;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logo:hover, .receipts:hover {
+    background-color: white;
+    color: #ff8c42;
+}
+
+.mealCard {
+    background-color: #ffe5b4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.ingredients {
+    text-align: left;
+    margin-left: 20px;
+}
+
+.moreBtn {
+    color: #ff8c42;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.instructions {
+    text-align: left;
+    margin-left: 20px;
+}
+
+.readmoreFooterDark {
+    padding: 50px 0;
+    color: #e3ebf5;
+    background-color: #ff8c42;
+    margin-top: 35px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .readmoreFooterDark h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #ffffff;
+  }
+  
+  .readmoreFooterDark ul {
+    padding: 0;
+    list-style: none;
+    line-height: 1.6;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+  
+  .readmoreFooterDark ul a {
+    color: #e3ebf5;
+    text-decoration: none;
+    opacity: 0.8;
+  }
+  
+  .readmoreFooterDark ul a:hover {
+    opacity: 1;
+  }
+  
+  .readmoreFooterDark .readmoreText p {
+    opacity: 0.8;
+    color: #d1dbe8;
+    margin-bottom: 0;
+  }
+  
+  .readmoreFooterDark .readmoreSocial {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .readmoreFooterDark .readmoreSocial > a {
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+    margin: 0 8px;
+    color: #e3ebf5;
+    background-color: #ff8c42;
+    opacity: 0.75;
+  }
+  
+  .readmoreFooterDark .readmoreSocial > a:hover {
+    opacity: 1;
+    background-color: #d7a17a;
+  }
+  
+  .readmoreFooterDark .readmoreCopyright {
+    text-align: center;
+    padding-top: 24px;
+    opacity: 0.5;
+    font-size: 13px;
+    margin-bottom: 0;
+    color: #d1dbe8;
+  }
+
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+img {
+    margin-bottom: 15px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+ul, ol {
+    text-align: left;
+    margin: 10px 0;
+}
+
+.updateButton {
+  background-color: #2429b4;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.deleteButton {
+  background-color: rgb(210, 42, 42);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.selectButton {
+  background-color: #007bff; /* Bootstrap primary blue */
+  color: white; /* Text color */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding for a better click area */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size */
+  transition: background-color 0.3s ease; /* Smooth background change */
+}
+
+.selectButton:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 1000; /* Ensures the modal is on top */
+}
+
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px; /* Width of the modal */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Optional shadow */
+}
+
+.modalContent h2 {
+  margin-bottom: 15px; /* Spacing below the heading */
+}
+
+.modalContent label {
+  display: block;
+  margin: 10px 0; /* Spacing around labels */
+}
+
+.modalContent input {
+  width: 100%;
+  padding: 8px; /* Padding inside inputs */
+  margin-bottom: 10px; /* Spacing below inputs */
+  border: 1px solid #ccc; /* Border for input */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.modalContent button {
+  margin-right: 10px; /* Spacing between buttons */
+}
+
+
+.mealsContainer {
+  padding: 20px;
+}
+
+.recipesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.recipeCard {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recipeImage {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
