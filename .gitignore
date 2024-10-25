@@ -135,3 +135,5 @@ baza - Copy.sql
 backend/src/main/resources/application.properties
 .vscode/settings.json
 backend/.idea
+# IntelliJ IDEA
+*/.idea
