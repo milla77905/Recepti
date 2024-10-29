@@ -21,7 +21,7 @@ The Recipes Application is a web-based platform designed for users to share and 
 
 - Development Environment: Visual Studio Code (VS Code)
 
-## Project stricture
+## Project structure
 
 - backend/: Contains the Spring Boot project that handles user authentication, recipe management, and database interactions.
 
@@ -31,20 +31,23 @@ The Recipes Application is a web-based platform designed for users to share and 
 
 - README.md: This file that contains documentation for developers.
 
-## Requirements
+## Required Apps
 
-•Before you begin, ensure you have met the following requirements:
+Before you begin, it's recommended to have the following applications and tools:
 
-- Java 
-- Spring Boot 
-- React
-- Node.js 
-- Postman
-- MySQL 
+- **Java**
+- **Spring Boot**
+- **React**
+- **Node.js**
+- **Postman**
+- **MySQL**
+
 
 ## Development environments
 
-- Visual Studio Code (recommended IDE) or any other IDE
+- Visual Studio Code (recommended IDE for frontend)
+- IntelliJ IDEA (recommended IDE for backend)
+- any other IDE
 
 
 ## Installation Instructions
@@ -76,6 +79,18 @@ The Recipes Application is a web-based platform designed for users to share and 
 
   - frontend:
     - http://localhost:3000
+
+## Coding Standards
+
+- **Java:**
+    - Follow standard Java naming conventions (camelCase for variables and methods, PascalCase for classes).
+    - Ensure proper indentation and comment code where necessary.
+    - Consider using tools like Checkstyle for enforcing coding standards.
+
+- **React:**
+    - Use functional components and hooks, and maintain a clear structure for your components.
+    - Ensure that JSX is properly formatted.
+    - Utilize PropTypes or TypeScript for type checking.
 
  ## License
 
