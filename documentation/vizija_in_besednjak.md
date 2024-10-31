@@ -23,7 +23,7 @@ or you can open this excel document [Glossary.xlsx](assets/Glossary.xlsx)
 - **Includes and Extends**: Use `<<include>>` and `<<extend>>` for additional features related to a primary use case. For example, "Sort Recipes" extends to "Alphabetical Order" and "By Food Type."
 
 <p align="center">
-<img src="./assets/DPU.png" alt="DPU Diagram" width="600px" >
+<img src="./assets/dpu.png" alt="DPU Diagram" width="600px" >
 </p>
 
 
