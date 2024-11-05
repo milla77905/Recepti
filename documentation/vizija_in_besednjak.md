@@ -4,8 +4,6 @@ The purpose of the app is to save, post and share the recipes and to organise pe
 
 # Glossary
 
-# Glossary
-
 | **Term**            | **Description**                                                                                                                                                      |
 |---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **recipe**          | A collection of ingredients, instructions, title, type of food, and an image.                                                                                       |
