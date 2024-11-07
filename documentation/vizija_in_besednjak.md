@@ -28,7 +28,7 @@ or you can open this excel document [Glossary.xlsx](assets/Glossary.xlsx)
 
 - **Actors as Characters**: The actors (Registered and Unregistered users) are represented by icons for clarity.
 - **Use Cases**: Each use case (e.g., "Add Recipe", "Login") describes a specific action available to the actor.
-- **Includes and Extends**: Use `<<include>>` and `<<extend>>` for additional features related to a primary use case. For example, "Sort Recipes" extends to "Alphabetical Order" and "By Food Type."
+- **Includes and Extends**: Use `<<include>>` and `<<extend>>` for additional features related to a primary use case."
 
 <p align="center">
 <img src="./assets/dpu.png" alt="DPU Diagram" width="600px" >
