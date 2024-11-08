@@ -27,7 +27,7 @@
 
 ## Use Case: Add Recipe
 
-| **Use Case:** Add Recipe   | **ID:** 03 |                                                                                  |
+| **ID:** 03   | **Use Case:** Add Recipe |                                                                                  |
 |----------------------|--------|---------------------------------------------------------------------------------------------|
 | **Goal**             | Allow the user to add a new recipe to the system                                             |
 | **Actors**           | Registered User                                                                                |
