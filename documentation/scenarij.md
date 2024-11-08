@@ -3,7 +3,7 @@
 ## Use Case: Login
 
 
-| **Use Case:** Login  | **ID:** 01   |                                                                                          |
+| **ID:** 01  | **Use Case:** Login   |                                                                                          |
 |--------------|--------|------------------------------------------------------------------------------------------|
 | **Goal**     | Allow the user to access the system                                                                |
 | **Actors**   | Registered User                                                                                    |
@@ -15,7 +15,7 @@
 
 ## Use Case: Registration
 
-| **Use Case:** Registration   | **ID:** 02 |                                                                                           |
+| **ID:** 02   | **Use Case:** Registration |                                                                                           |
 |--------------------|--------|-------------------------------------------------------------------------------------------|
 | **Goal**           | Allow new users to create an account                                                               |
 | **Actors**         | New User                                                                                           |
@@ -39,7 +39,7 @@
 
 ## Use Case: View Recipes
 
-| **Use Case:** View Recipes     | **ID:** 04 |                                                                                             |
+| **ID:** 04     | **Use Case:** View Recipes |                                                                                             |
 |----------------------|--------|---------------------------------------------------------------------------------------------|
 | **Goal**             | Allow the user to view recipes                                                                 |
 | **Actors**           | Registered User                                                                                |
@@ -52,7 +52,7 @@
 
 ## Use Case: Edit Recipes
 
-| **Use Case:** Edit Recipes      | **ID:** 05 |                                                                                          |
+| **ID:** 05      | **Use Case:** Edit Recipes |                                                                                          |
 |----------------------|--------|---------------------------------------------------------------------------------------------|
 | **Goal**             | Allow the user to edit existing recipes                                                       |
 | **Actors**           | Registered User                                                                                |
@@ -65,7 +65,7 @@
 
 ## Use Case: Delete Recipes
 
-| **Use Case:** Delete Recipes        | **ID:** 06 |                                                                                             |
+| **ID:** 06        | **Use Case:** Delete Recipes |                                                                                             |
 |----------------------|--------|---------------------------------------------------------------------------------------------|
 | **Goal**             | Allow the user to delete recipes                                                               |
 | **Actors**           | Registered User                                                                                |
@@ -78,7 +78,7 @@
 
 ## Use Case: Sort by Recipe Type 
 
-| **Use Case:** Sort by Recipe Type     | **ID:** 07 |                                                                                             |
+| **ID:** 07     | **Use Case:** Sort by Recipe Type |                                                                                             |
 |----------------------------|--------|---------------------------------------------------------------------------------------------|
 | **Goal**                   | Allow the user to sort recipes by recipe type                                                |
 | **Actors**                 | Registered User                                                                                |
@@ -91,7 +91,7 @@
 
 ## Use Case: Sort Alphabetically
 
-| **Use Case:** Sort Alphabetically       | **ID:** 08 |                                                                                             |
+| **ID:** 08       | **ID:** 08**Use Case:** Sort Alphabetically |                                                                                             |
 |----------------------------|--------|---------------------------------------------------------------------------------------------|
 | **Goal**                   | Allow the user to sort recipes alphabetically                                                |
 | **Actors**                 | Registered User                                                                                |
