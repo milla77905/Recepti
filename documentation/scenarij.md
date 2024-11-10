@@ -91,7 +91,7 @@
 
 ## Use Case: Sort Alphabetically
 
-| **ID:** 08       | **ID:** 08**Use Case:** Sort Alphabetically |                                                                                             |
+| **ID:** 08       | **Use Case:** Sort     Alphabetically |                                                                                             |
 |----------------------------|--------|---------------------------------------------------------------------------------------------|
 | **Goal**                   | Allow the user to sort recipes alphabetically                                                |
 | **Actors**                 | Registered User                                                                                |
@@ -100,3 +100,30 @@
 | **Scenario**               | 1. The user selects the option to sort alphabetically. <br> 2. The system displays recipes sorted in alphabetical order. |
 | **Alternative Flows**      | If there are no recipes, the system displays a notification.                                 |
 | **Exceptions**             | The system cannot perform sorting due to a technical error.                                  |
+
+
+## Use Case: Export Recipes to Excel
+
+| **ID:** 09                     | **Use Case:** Export to Excel file    |
+|--------------------------------|---------------------------------------|
+| **Use Case:**                  | Export Recipes to Excel               |
+| **Goal:**                      | Allow the user to export recipes to an Excel file for offline use |
+| **Actors:**                    | Registered User                       |
+| **Preconditions:**             | The user must be logged in and have recipes in the system |
+| **System State After Use Case:** | The system generates and downloads an Excel file containing the selected recipes |
+| **Scenario:**                  | 1. The user selects the option to export recipes to an Excel file. <br> 2. The system prompts the user to choose specific recipes or all recipes for export. <br> 3. The user selects the recipes to export and confirms. <br> 4. The system generates an Excel file with the selected recipes. <br> 5. The system initiates the download of the Excel file for the user. |
+| **Alternative Flows:**         | If no recipes are available to export, the system displays a notification. |
+| **Exceptions:**                | If the system encounters an error generating the Excel file, it displays an error message and prompts the user to try again later. |
+
+## Use Case: Choose Recipes to Export to Excel
+
+| **ID:** 10                     |  **Use Case:** Select specific recipes   |
+|--------------------------------|---------------------------------------|
+| **Use Case:**                  | Choose Recipes to Export to Excel     |
+| **Goal:**                      | Allow the user to select specific recipes to include in the exported Excel file |
+| **Actors:**                    | Registered User                       |
+| **Preconditions:**             | The user must be logged in and have recipes available in the system |
+| **System State After Use Case:** | The system prepares a list of selected recipes for export to Excel |
+| **Scenario:**                  | 1. The user selects the option to export recipes to an Excel file. <br> 2. The system displays a list of the user’s recipes, allowing them to select specific recipes or choose all recipes. <br> 3. The user chooses individual recipes or selects an "Export All" option. <br> 4. The user confirms their selection. <br> 5. The system proceeds to generate an Excel file with the selected recipes. |
+| **Alternative Flows:**         | If no recipes are available for selection, the system displays a notification. |
+| **Exceptions:**                | If the system encounters an error displaying the list of recipes, it notifies the user and prompts them to try again later. |
