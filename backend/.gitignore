@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Miha ###
+
+src/main/resources/application.properties

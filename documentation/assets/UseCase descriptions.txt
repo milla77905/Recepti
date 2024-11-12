@@ -1,0 +1,175 @@
+1. 
+Use case:   Adding a recipe
+
+ID:     001
+
+Goal:   An user adds a recipe.
+
+Actors:     Registered user
+
+Requirements:   Registration
+
+State of the system after UC:   The system has one more recipe.
+
+Scenario:
+
+1.  The user clicks on the button for adding a recipe "Add recipe"
+2. The user fills out the first input field labeled "Title" with the title of their recipe.
+3. The user fills out the input field labeled "Ingredients" with the Ingredients of their recipe.
+4. The user fills out the input field labeled "Instructions" with the Instructions of their recipe.
+5. The user selects type of food in the select input field labeled "Select food type".
+6.a The user clicks on the button labeled "Upload photo".
+6.b The user does not upload a photo.
+7. The user clicks the " Submit" button.
+
+Alternative flows:      
+
+Exceptions:     If the user does not fill out one or more input fields, the system throws an exception and alerts user that the field(s) is (are) required. 
+
+
+2. 
+Use case:   Editing a recipe
+
+ID:     002
+
+Goal:   An user edits a recipe.
+
+Actors:     Registered user
+
+Requirements:   Registration and the user has to already had added at least one recipe. The user can only edit his own recipes.
+
+State of the system after UC:   The selected recipe is changed.
+
+Scenario:
+
+1. The user goes to the recipes. 
+2. User clicks the button "Select" on a recipe thet they added.
+3. The system displays the recipe in a form.
+4. User selects an input field in the form.
+5.a User clicks button "Submit".
+5.b User clicks button "Cancel".
+
+Alternative flows:      
+
+Exceptions:     If the user does not fill out one or more input fields, the system throws an exception and alerts user that the field(s) is (are) required. 
+
+
+
+3. 
+Use case:   Sorting recipes by food type
+
+ID:     003
+
+Goal:   User wants to view recipes sorted by food type.
+
+Actors:     Registered user
+
+Requirements:   Registration.
+
+State of the system after UC:   Nothing changes.
+
+Scenario:
+
+1. The user goes to the recipes. 
+2. User clicks on the select field labeled "Sort by".
+3. User selects option named "Food type".
+4. System displays recipes sorted by food type.
+
+Alternative flows:      If there are no recipes for a food type, there is nothing displazed under the respective food type.
+
+Exceptions:     
+
+
+
+4. 
+Use case: Deleting a recipe
+
+ID:
+
+Goal:
+
+Actors:
+
+Requirements:
+
+State of the system after UC:
+
+Scenario:
+
+Alternative flows:
+
+Exceptions:
+
+
+5.
+Use case:   Sorting recipes by alphabetical order
+
+ID:
+
+Goal:
+
+Actors:
+
+Requirements:
+
+State of the system after UC:
+
+Scenario:
+
+Alternative flows:
+
+Exceptions:
+
+
+
+6.
+Use case:   Exporting recipes
+
+ID:
+
+Goal:
+
+Actors:
+
+Requirements:
+
+State of the system after UC:
+
+Scenario:
+
+Alternative flows:
+
+Exceptions:
+
+
+
+
+
+
+
+
+Primer uporabe: 
+
+ID:
+
+Cilj:
+
+Akterji:
+
+Predpogoji: 
+
+Stanje sistema po PU:
+
+Scenarij:
+
+1.  Korak 1
+
+2. Korak 2
+
+3. …
+
+Alternativni tokovi:
+
+Izjeme:
+
+
