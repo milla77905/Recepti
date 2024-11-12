@@ -22,7 +22,7 @@ The purpose of the app is to save, post and share the recipes and to organise pe
 
 or you can open this excel document [Glossary.xlsx](assets/Glossary.xlsx)
 
-# DPU 
+# UCD (sl. DPU) 
 
 ## Explanation
 
