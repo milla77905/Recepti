@@ -1,13 +1,9 @@
 package com.example.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.entity.Users;
-import com.example.requests.LoginRequest;
 import com.example.service.UserService;
 
 @RestController
@@ -24,8 +20,9 @@ public class UsersController {
 	
 	@PostMapping("/loginUser")
 	@CrossOrigin(origins = "http://localhost:3000")
-	public Boolean loginUser(@RequestBody LoginRequest loginRequest) {
-		return userService.loginUser(loginRequest);
+	public Boolean loginUser(@RequestPart String email, @RequestPart String password) {
+		Users user = new Users(email, password);
+		return userService.loginUser(user);
 		
    }
 

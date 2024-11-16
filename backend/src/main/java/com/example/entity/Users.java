@@ -6,15 +6,17 @@ import jakarta.persistence.Id;
 @Entity
 public class Users {
 	
-	public Users() {
-		
+	public Users() {}
+
+	public Users(String email, String password) {
+		this();
+		this.email = email;
+		this.password = password;
 	}
 
 	public Users(String name, String email, String password) {
-		super();
+		this(email, password);
         this.name = name;
-		this.email = email;
-		this.password = password;
 	}
 
 	public String getEmail() {

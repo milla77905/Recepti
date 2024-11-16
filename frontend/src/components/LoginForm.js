@@ -20,7 +20,7 @@ const LoginForm = () => {
         console.log("this is our data "+ userId +"   "+ password )
         
         const data = {
-            "userId": userId,
+            "email": userId,    // i know it's confusing, but the backend is actually expecting an email, not the user id or user name
             "password": password
         }
 
@@ -32,7 +32,7 @@ const LoginForm = () => {
                 alert("Invalid User Id or Password");
             }
             else {
-                alert("Login Successfull");
+                //alert("Login Successfull");   // commented because: we do not want app interuptions if there are no exceptions
 
                 window.location.href = "/readmore";
 

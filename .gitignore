@@ -133,8 +133,11 @@ dist
 */.idea
 
 # Miha gitignore
-backend/src/main/resources/application.properties
+/backend/src/main/resources
 baza - Copy.sql
 backend/src/main/resources/application.properties
 .vscode/settings.json
 backend/.idea
+/backend/uploads
+backend/src/main/resources/application.properties
+backend/src/main/resources/application.properties
