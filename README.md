@@ -167,6 +167,23 @@ Before you begin, it's recommended to have the following applications and tools:
 | **Purpose** | Enables interaction with the recipe database. |
 |   |    |                                                                                          |
 
+### Class: ExcelExportService
+|   |    |                                                                                          |
+|--------------|--------|------------------------------------------------------------------------------------------|
+| **Role** |  Acts as an intermediary service that retrieves recipe data and delegates the Excel file generation to the ExcelFileGenerator. It ensures that the process of exporting recipes to Excel is handled smoothly.          |
+| **Methods** | - exportRecipesToExcel(List<Long> recipeIds, OutputStream outputStream): Exports selected recipes to an Excel file. <br> - fetchAllRecipesForExport(): Retrieves all recipes if "Export All" is selected. |
+| **Purpose** | Provides the functionality to generate an Excel file containing selected recipes. It acts as a bridge between the controller (handling user requests) and the logic for generating Excel files. |
+|   |    |    
+
+### Class: ExcelFileGenerator
+|   |    |                                                                                          |
+|--------------|--------|------------------------------------------------------------------------------------------|
+| **Role** |  Handles the low-level details of creating and formatting the Excel file. It uses libraries like Apache POI to create sheets, rows, and cells for the data.          |
+| **Methods** | - generateExcelFile(List<Recipes> recipes, OutputStream outputStream): Generates an Excel file and writes it to the given output stream. <br> - formatRecipeRow(Recipes recipe): Formats a single recipe as a row in the Excel sheet. |
+| **Purpose** | Encapsulates the logic of creating and formatting an Excel file from the recipe data. It ensures that the data is properly structured and displayed in the Excel file. |
+|   |    |  
+
+
 ### Class: JpaRepository<T, ID>
 |   |    |                                                                                          |
 |--------------|--------|------------------------------------------------------------------------------------------|
