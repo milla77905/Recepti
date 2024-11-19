@@ -216,6 +216,9 @@ Before you begin, it's recommended to have the following applications and tools:
 | **loginUser() (UsersController, UserService)** | Authenticates a user by checking credentials against stored data. |
 | **addRecipe() (RecipeController, RecipeService)** |  Handles the logic for adding recipes and their images.          |
 | **getAllRecipes() (RecipeController, RecipeService)** |  Fetches a list of all recipes. |
+| **fetchAllRecipesForExport() (ExcelExportService)** |  Fetches a list of selected recipes. |
+| **exportRecipesToExcel() (ExcelExportService)** |  Export a list of selected recipes into an excel file. |
+| **generateExcelFile() (ExcelFileGenerator)** |  Generate excel file and insert a list of selected recipes. |
 |   |    |                                                                                          |
 
 
