@@ -137,7 +137,7 @@ Before you begin, it's recommended to have the following applications and tools:
 |   |    |                                                                                          |
 |--------------|--------|------------------------------------------------------------------------------------------|
 | **Role** |  Controller class for APIs related to recipes.          |
-| **Methods** | - addRecipe(String recipeRequest, MultipartFile imageFile): Adds a new recipe with an optional image. <br> - getAllRecipes(): Retrieves a list of all recipes. <br> - getRecipe(Long id): Retrieves a specific recipe by ID. <br> - deleteRecipe(Long id): Deletes a recipe by ID. <br> - updateRecipes(Long id, Recipes updatedRecipe): Updates an existing recipe. |
+| **Methods** | - addRecipe(String recipeRequest, MultipartFile imageFile): Adds a new recipe with an optional image. <br> - getAllRecipes(): Retrieves a list of all recipes. <br> - getRecipe(Long id): Retrieves a specific recipe by ID. <br> - deleteRecipe(Long id): Deletes a recipe by ID. <br> - updateRecipes(Long id, Recipes updatedRecipe): Updates an existing recipe. <br> - exportRecipesToExcel(@RequestParam List<Long> recipeIds, HttpServletResponse response) - The endpoint for exporting recipes to an Excel file. |
 | **Purpose** | Processes user requests and forwards them to appropriate services for recipe management. |
 |   |    |                                                                                          |
 
@@ -145,7 +145,7 @@ Before you begin, it's recommended to have the following applications and tools:
 |   |    |                                                                                          |
 |--------------|--------|------------------------------------------------------------------------------------------|
 | **Role** |  Contains the business logic for managing recipes.          |
-| **Methods** | - addRecipe(Recipes recipe, MultipartFile imageFile): Handles the logic for adding a new recipe. <br> - getAllRecipes(): Retrieves all recipes from the database. <br> - getRecipe(Long id): Retrieves a specific recipe. <br> - saveImage(MultipartFile imageFile): Saves the recipe image. |
+| **Methods** | - addRecipe(Recipes recipe, MultipartFile imageFile): Handles the logic for adding a new recipe. <br> - getAllRecipes(): Retrieves all recipes from the database. <br> - getRecipe(Long id): Retrieves a specific recipe. <br> - saveImage(MultipartFile imageFile): Saves the recipe image. <br> - getRecipesByIds(List<Long> recipeIds): List<Recipes> - Fetches recipes from the repository by their IDs. |
 | **Purpose** | Manages the data and logic for recipe operations. |
 |   |    |                                                                                          |
 
