@@ -4,23 +4,23 @@ import axios from "axios";
 
 const LoginForm = () => {
   const [password, setPasswordValue] = useState("");
-    const [userId, setUserIdValue] = useState("");
+    const [userEmail, setUserEmailValue] = useState("");
 
     const setPassword = (e) => {
         setPasswordValue(e.target.value);
     }
 
-    const setUserId = (e) => {
-        setUserIdValue(e.target.value);
+    const setUserEmail = (e) => {
+        setUserEmailValue(e.target.value);
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        console.log("this is our data "+ userId +"   "+ password )
+        console.log("this is our data "+ userEmail +"   "+ password )
         
         const data = {
-            "email": userId,    // i know it's confusing, but the backend is actually expecting an email, not the user id or user name
+            "userEmail": userEmail,    // i know it's confusing, but the backend is actually expecting an email, not the user id or user name
             "password": password
         }
 
@@ -53,8 +53,8 @@ const LoginForm = () => {
             type="email"
             name="email"
             placeholder="Email Address"
-            value={userId}
-            onChange={setUserId}
+            value={userEmail}
+            onChange={setUserEmail}
             required
             className={styles.loginInput}
           />
