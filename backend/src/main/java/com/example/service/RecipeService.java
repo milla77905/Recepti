@@ -57,7 +57,13 @@ public class RecipeService {
         return fileName; // Return the filename
     }
     
-    
+    public RecipeService(RecipesRepo recipeRepository) {        // d
+        this.recipeRepository = recipeRepository;
+    }
+
+    public List<Recipes> getRecipesByIds(List<Long> recipeIds) {    // self explanatory
+        return recipeRepository.findAllById(recipeIds);
+    }
 
 
     }
