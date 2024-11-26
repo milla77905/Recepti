@@ -137,8 +137,13 @@ const Meals = () => {
 
         return recipes.sort((a, b) => {
             if (order === 'type') {
+<<<<<<< HEAD
                 const typeA = typeOrder[a.type?.toUpperCase()] || 4;
                 const typeB = typeOrder[b.type?.toUpperCase()] || 4;
+=======
+                const typeA = typeOrder[a.type.toUpperCase()] || 4;
+                const typeB = typeOrder[b.type.toUpperCase()] || 4;
+>>>>>>> 7d20cb828c04904d3833e0694affb5d402e66dff
 
                 if (typeA === typeB) {
                     return a.name.localeCompare(b.name);

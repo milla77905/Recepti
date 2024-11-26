@@ -4,7 +4,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,25 +13,25 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.entity.FoodType;
 import com.example.entity.Recipes;
-import com.example.repository.RecipesRepo;
 import com.example.service.RecipeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
+<<<<<<< HEAD
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.service.ExcelExportService;
+=======
+>>>>>>> 7d20cb828c04904d3833e0694affb5d402e66dff
 
 @CrossOrigin(origins = "http://localhost:3000") 
 @RestController
@@ -118,6 +117,7 @@ private String saveImageFile(MultipartFile file) throws Exception {
     }
 
     
+<<<<<<< HEAD
 @Autowired
     private RecipesRepo recipesRepository;
 
@@ -149,6 +149,8 @@ private String saveImageFile(MultipartFile file) throws Exception {
         // Return success response
         return ResponseEntity.ok("Updated");
     }
+=======
+>>>>>>> 7d20cb828c04904d3833e0694affb5d402e66dff
 
      private final ExcelExportService excelExportService;
     public RecipeController(ExcelExportService excelExportService) {
