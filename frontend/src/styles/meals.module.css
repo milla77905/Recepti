@@ -298,3 +298,24 @@ ul, ol {
   border-radius: 8px;
 }
 
+.recipeCheckbox {
+  margin-right: 10px;
+}
+
+.exportButton {
+  margin: 10px 0;
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 50%;
+}
+
+.exportButton:hover {
+  background-color: #218838;
+}
+.sort {
+  margin-left: 250px;
+}
