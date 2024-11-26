@@ -167,6 +167,27 @@ Before you begin, it's recommended to have the following applications and tools:
 | **Purpose** | Enables interaction with the recipe database. |
 |   |    |                                                                                          |
 
+
+### Class: JpaRepository<T, ID>
+|   |    |                                                                                          |
+|--------------|--------|------------------------------------------------------------------------------------------|
+| **Role** |  Generic Spring Data JPA interface that provides CRUD operations for entities.          |
+| **Purpose** | Acts as a base interface for UsersRepo and RecipesRepo, enabling database operations without requiring custom query definitions. |
+|   |    |                                                                                          |
+
+### Key Methods for Functionality
+|   |    |                                                                                          |
+|--------------|--------|------------------------------------------------------------------------------------------|
+| **addUser() (UsersController, UserService)** |  Registers a new user by validating and saving their data. |
+| **loginUser() (UsersController, UserService)** | Authenticates a user by checking credentials against stored data. |
+| **addRecipe() (RecipeController, RecipeService)** |  Handles the logic for adding recipes and their images.          |
+| **getAllRecipes() (RecipeController, RecipeService)** |  Fetches a list of all recipes. |
+| **fetchAllRecipesForExport() (ExcelExportService)** |  Fetches a list of selected recipes. |
+| **exportRecipesToExcel() (ExcelExportService)** |  Export a list of selected recipes into an excel file. |
+| **generateExcelFile() (ExcelFileGenerator)** |  Generate excel file and insert a list of selected recipes. |
+|   |    |                                                                                          |
+
+
 ### Class: ExcelExportService
 |   |    |                                                                                          |
 |--------------|--------|------------------------------------------------------------------------------------------|
@@ -183,44 +204,10 @@ Before you begin, it's recommended to have the following applications and tools:
 | **Purpose** | Encapsulates the logic of creating and formatting an Excel file from the recipe data. It ensures that the data is properly structured and displayed in the Excel file. |
 |   |    |  
 
-
-### Class: JpaRepository<T, ID>
-|   |    |                                                                                          |
-|--------------|--------|------------------------------------------------------------------------------------------|
-| **Role** |  Generic Spring Data JPA interface that provides CRUD operations for entities.          |
-| **Purpose** | Acts as a base interface for UsersRepo and RecipesRepo, enabling database operations without requiring custom query definitions. |
-|   |    |                                                                                          |
-
-
-### Class: WebConfig
-|   |    |                                                                                          |
-|--------------|--------|------------------------------------------------------------------------------------------|
-| **Role** |  Configuration class for the web application.          |
-| **Methods** | - addCorsMappings(CorsRegistry registry): Configures Cross-Origin Resource Sharing (CORS). <br> - addResourceHandlers(ResourceHandlerRegistry registry): Adds resources like images. |
-| **Purpose** | Sets up basic configurations for the application. |
-|   |    |                                                                                          |
-
-
-### Class: DemoApplication
-|   |    |                                                                                          |
-|--------------|--------|------------------------------------------------------------------------------------------|
-| **Role** |  Entry point of the application.          |
-| **Methods** | - main(String[] args): Starts the application. |
-| **Purpose** | Launches the Spring Boot application. |
-|   |    |                                                                                          |
-
-### Key Methods for Functionality
-|   |    |                                                                                          |
-|--------------|--------|------------------------------------------------------------------------------------------|
-| **addUser() (UsersController, UserService)** |  Registers a new user by validating and saving their data. |
-| **loginUser() (UsersController, UserService)** | Authenticates a user by checking credentials against stored data. |
-| **addRecipe() (RecipeController, RecipeService)** |  Handles the logic for adding recipes and their images.          |
-| **getAllRecipes() (RecipeController, RecipeService)** |  Fetches a list of all recipes. |
-| **fetchAllRecipesForExport() (ExcelExportService)** |  Fetches a list of selected recipes. |
-| **exportRecipesToExcel() (ExcelExportService)** |  Export a list of selected recipes into an excel file. |
-| **generateExcelFile() (ExcelFileGenerator)** |  Generate excel file and insert a list of selected recipes. |
-|   |    |                                                                                          |
-
+### How can the user use the new functionality?
+- selection of recipes that he wants to export to an Excel file
+- clicking on the Export to Excel button
+- an Excel file is downloaded where the user will be able to see the selected recipes
 
  ## License
 

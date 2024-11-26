@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.entity.Users;
 import com.example.service.UserService;
-
+import com.example.requests.LoginRequest;;
 @RestController
 public class UsersController {
 	
@@ -20,10 +20,7 @@ public class UsersController {
 	
 	@PostMapping("/loginUser")
 	@CrossOrigin(origins = "http://localhost:3000")
-	public Boolean loginUser(@RequestPart String email, @RequestPart String password) {
-		Users user = new Users(email, password);
-		return userService.loginUser(user);
-		
-   }
-
+	public Boolean loginUser(@RequestBody LoginRequest loginRequest) {
+		return userService.loginUser(loginRequest);
+	}
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.entity.Users;
 import com.example.repository.UsersRepo;
+import com.example.requests.LoginRequest;
 
 @Service
 public class UserService {
@@ -20,15 +21,13 @@ public class UserService {
 		
 	}
 	
-	public Boolean loginUser(Users userNew) {
+	public Boolean loginUser(LoginRequest loginRequest) {
 
-        Optional<Users> userOptional = usersRepo.findById(userNew.getEmail());
-        
+        Optional<Users> userOptional = usersRepo.findById(loginRequest.getUserEmail());        
         if (userOptional.isPresent()) {
             Users user = userOptional.get(); 
             
-            return (!user.getPassword().equals(userNew.getPassword()));
-        }
+            return (!user.getPassword().equals(loginRequest.getPassword()));        }
         
         return true;
     }

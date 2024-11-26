@@ -8,15 +8,12 @@ public class Users {
 	
 	public Users() {}
 
-	public Users(String email, String password) {
-		this();
+	
+	public Users(String email, String name, String password) {
+		super();
 		this.email = email;
+		this.name = name;
 		this.password = password;
-	}
-
-	public Users(String name, String email, String password) {
-		this(email, password);
-        this.name = name;
 	}
 
 	public String getEmail() {
