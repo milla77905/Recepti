@@ -7,6 +7,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Version;
 
 @Entity
 public class Recipes {
@@ -28,6 +29,9 @@ public class Recipes {
     private String instructions;
 
     private String imagePath; 
+
+    @Version  
+    private int version;
 
     // Getters and setters
     public Long getId() { return id; }
