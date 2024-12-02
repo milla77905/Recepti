@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,14 +25,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.entity.FoodType;
 import com.example.entity.Recipes;
+import com.example.repository.RecipesRepo;
+import com.example.service.ExcelExportService;
 import com.example.service.RecipeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.repository.RecipesRepo;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import com.example.service.ExcelExportService;
 
 @CrossOrigin(origins = "http://localhost:3000") 
 @RestController
@@ -95,8 +95,10 @@ private String saveImageFile(MultipartFile file) throws Exception {
     
     @GetMapping
     public List<Recipes> getAllRecipes(HttpServletRequest request) {
-        System.out.println("Request URL: " + request.getRequestURL());  
-        return recipeService.findAll();
+        if (request != null) {
+            System.out.println("Request URL: " + request.getRequestURL());
+        }
+                return recipeService.findAll();
     }
     
     @PostMapping
