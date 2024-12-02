@@ -47,4 +47,13 @@ public class Recipes {
 
     public String getImagePath() { return imagePath; }
     public void setImagePath(String imagePath) { this.imagePath = imagePath; }
+
+    public Recipes() {}
+    public Recipes(String name, FoodType foodType, String ingredients, String instructions, String imagePath) {
+        this.name = name;
+        this.foodType = foodType;
+        this.ingredients = ingredients;
+        this.instructions = instructions;
+        this.imagePath = imagePath;
+    }
 }
