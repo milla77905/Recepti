@@ -209,6 +209,40 @@ Before you begin, it's recommended to have the following applications and tools:
 - clicking on the Export to Excel button
 - an Excel file is downloaded where the user will be able to see the selected recipes
 
+## Testing Directory
+The project now includes a dedicated testing directory located at documentation/testiranja/, which contains unit tests to ensure the reliability and correctness of the application's backend functionalities.
+
+### Structure of the Testing Directory
+- **src/test/java/:** Contains all unit test classes organized in packages corresponding to the application's main modules.
+- **testiranja/porocilo_testiranja.md:** A markdown document that provides a summary of the testing process, including:
+  - Description of the implemented tests.
+  - Names of the contributors and their responsibilities.
+  - Analysis of test results, including any bugs found and resolved during the testing phase.
+
+### Key Features of the Tests
+- **Coverage:**
+The tests cover critical functionalities, including:
+  - User registration and login.
+  - Recipe management (add, delete, update recipes).
+  - Exporting recipes to Excel.
+- **Scenarios Tested:**
+  - **Positive Scenarios:** Verify that the application behaves as expected under normal conditions.
+  - **Negative Scenarios:** Test how the application handles invalid inputs or unexpected situations.
+
+### How to Run the Tests
+- **Backend Tests:**
+Navigate to the backend directory and execute the tests using Maven:
+  - **./mvnw test**
+- **Viewing Results:**
+The results will be displayed in the terminal and saved in the target/surefire-reports/ directory.
+
+### Test Report
+All details regarding the tests and their results are documented in the porocilo_testiranja.md file in the testiranje/ folder. This report highlights:
+  - The success rate of tests.
+  - Any identified issues and their resolutions.
+  - Contributor roles and responsibilities.
+
+
  ## License
 
     Recipes® ©2024 All rights reserved

@@ -1,4 +1,5 @@
 package com.example.service;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -41,5 +42,13 @@ public class ExcelFileGenerator {
         // Zapišite podatke v outputStream
         workbook.write(outputStream);
         workbook.close();
+    }
+
+     public void generateEmptyExcelFile(OutputStream outputStream) throws IOException {
+        // Create an empty Excel file with one sheet and no rows
+        try (XSSFWorkbook workbook = new XSSFWorkbook()) {
+            workbook.createSheet("Recipes");
+            workbook.write(outputStream); // Write the empty workbook to the output stream
+        }
     }
 }

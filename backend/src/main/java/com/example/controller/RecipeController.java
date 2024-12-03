@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,14 +25,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.entity.FoodType;
 import com.example.entity.Recipes;
+import com.example.repository.RecipesRepo;
+import com.example.service.ExcelExportService;
 import com.example.service.RecipeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.repository.RecipesRepo;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import com.example.service.ExcelExportService;
 
 @CrossOrigin(origins = "http://localhost:3000") 
 @RestController
@@ -95,8 +95,10 @@ private String saveImageFile(MultipartFile file) throws Exception {
     
     @GetMapping
     public List<Recipes> getAllRecipes(HttpServletRequest request) {
-        System.out.println("Request URL: " + request.getRequestURL());  
-        return recipeService.findAll();
+        if (request != null) {
+            System.out.println("Request URL: " + request.getRequestURL());
+        }
+                return recipeService.findAll();
     }
     
     @PostMapping
@@ -121,33 +123,40 @@ private String saveImageFile(MultipartFile file) throws Exception {
     private RecipesRepo recipesRepository;
 
     @PutMapping(path = "/updateRecipes/{id}")
-    public @ResponseBody ResponseEntity<String> updateRecipes(@PathVariable Long id, @RequestBody Recipes updatedRecipe) {
-        // Find the existing recipe by ID
-        Optional<Recipes> existingRecipeOpt = recipesRepository.findById(id);
+   public @ResponseBody ResponseEntity<String> updateRecipes(@PathVariable Long id, @RequestBody Recipes updatedRecipe) {
+    // Find the existing recipe by ID
+    Optional<Recipes> existingRecipeOpt = recipesRepository.findById(id);
 
-        // Check if the recipe exists
-        if (!existingRecipeOpt.isPresent()) {
-            return ResponseEntity.status(404).body("Recipe not found with ID: " + id);
-        }
-
-        // Update the existing recipe
-        Recipes existingRecipe = existingRecipeOpt.get();
-        existingRecipe.setName(updatedRecipe.getName());
-        existingRecipe.setFoodType(updatedRecipe.getFoodType());
-        existingRecipe.setIngredients(updatedRecipe.getIngredients());
-        existingRecipe.setInstructions(updatedRecipe.getInstructions());
-
-        // Optional: Update the image path if provided
-        if (updatedRecipe.getImagePath() != null && !updatedRecipe.getImagePath().isEmpty()) {
-            existingRecipe.setImagePath(updatedRecipe.getImagePath());
-        }
-
-        // Save the updated recipe to the database
-        recipesRepository.save(existingRecipe);
-
-        // Return success response
-        return ResponseEntity.ok("Updated");
+    // Check if the recipe exists
+    if (!existingRecipeOpt.isPresent()) {
+        return ResponseEntity.status(404).body("Recipe not found with ID: " + id);
     }
+
+    // Validate the updated recipe data (e.g., check for empty name)
+    if (updatedRecipe.getName() == null || updatedRecipe.getName().isEmpty()) {
+        // Returning BAD_REQUEST for invalid data
+        return ResponseEntity.status(400).body("Invalid recipe name, it cannot be empty.");
+    }
+
+    // Update the existing recipe
+    Recipes existingRecipe = existingRecipeOpt.get();
+    existingRecipe.setName(updatedRecipe.getName());
+    existingRecipe.setFoodType(updatedRecipe.getFoodType());
+    existingRecipe.setIngredients(updatedRecipe.getIngredients());
+    existingRecipe.setInstructions(updatedRecipe.getInstructions());
+
+    // Optional: Update the image path if provided
+    if (updatedRecipe.getImagePath() != null && !updatedRecipe.getImagePath().isEmpty()) {
+        existingRecipe.setImagePath(updatedRecipe.getImagePath());
+    }
+
+    // Save the updated recipe to the database
+    recipesRepository.save(existingRecipe);
+
+    // Return success response
+    return ResponseEntity.ok("Updated");
+}
+
 
      private final ExcelExportService excelExportService;
     public RecipeController(ExcelExportService excelExportService) {

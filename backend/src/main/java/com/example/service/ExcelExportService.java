@@ -20,6 +20,11 @@ public class ExcelExportService {
     }
 
     public void exportRecipesToExcel(List<Long> recipeIds, OutputStream outputStream) throws Exception {
+        if (recipeIds == null || recipeIds.isEmpty()) {
+            excelFileGenerator.generateEmptyExcelFile(outputStream); 
+            return;
+        }
+        
         List<Recipes> recipes = recipeService.getRecipesByIds(recipeIds);
         excelFileGenerator.generateExcelFile(recipes, outputStream);
     }
