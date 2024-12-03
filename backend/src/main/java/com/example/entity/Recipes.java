@@ -35,22 +35,46 @@ public class Recipes {
 
     // Getters and setters
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) { 
+        if (id != null && id < 0) {
+            throw new IllegalArgumentException("ID cannot be negative");
+        }
+        this.id = id; }
 
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) { 
+        if (name == null || name.trim().isEmpty()) {   
+            throw new IllegalArgumentException("Name cannot be null or empty");
+        }
+        this.name = name; }
 
     public FoodType getFoodType() { return foodType; }
-    public void setFoodType(FoodType foodType) { this.foodType = foodType; }
+    public void setFoodType(FoodType foodType) { 
+        if (foodType == null) {
+            throw new IllegalArgumentException("Food type cannot be null");
+        }
+        this.foodType = foodType; }
 
     public String getIngredients() { return ingredients; }
-    public void setIngredients(String ingredients) { this.ingredients = ingredients; }
+    public void setIngredients(String ingredients) { 
+        if (ingredients == null || ingredients.trim().isEmpty()) {     
+            throw new IllegalArgumentException("Ingredients cannot be null or empty");
+        }
+        this.ingredients = ingredients; }
 
     public String getInstructions() { return instructions; }
-    public void setInstructions(String instructions) { this.instructions = instructions; }
+    public void setInstructions(String instructions) { 
+        if (instructions == null || instructions.trim().isEmpty()) {  
+            throw new IllegalArgumentException("Instructions cannot be null or empty");
+        }
+        this.instructions = instructions; }
 
     public String getImagePath() { return imagePath; }
-    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
+    public void setImagePath(String imagePath) { 
+        if (imagePath == null || imagePath.trim().isEmpty()) {   
+            throw new IllegalArgumentException("Image path cannot be null or empty");
+        }
+        this.imagePath = imagePath; }
 
     public Recipes() {}
     public Recipes(String name, FoodType foodType, String ingredients, String instructions, String imagePath) {
