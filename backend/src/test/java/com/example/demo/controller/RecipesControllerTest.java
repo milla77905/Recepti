@@ -23,25 +23,48 @@ public class RecipesControllerTest {
 
     private Recipes recipe;
 
-
+    // Pred vsakim testom očistimo bazo in ustvarimo nov testni recept.
     @BeforeEach
     void init() {
-        repo.deleteAll(); // Clear the database before each test
-        // Assign a non-null value to the imagePath
+        repo.deleteAll(); // Izbrišemo vse obstoječe podatke v bazi.
         recipe = new Recipes("Test Recipe", FoodType.BAKERY, "Test Ingredients", "Test Instructions", "default_image_path.jpg");
     }
 
+    // Pozitiven test: Dodajanje recepta
     @Test
     void testAddRecipe() {
-        controller.addRecipe(recipe);
+        controller.addRecipe(recipe);         // Dodamo recept
+        // Preverimo, ali je seznam receptov v bazi ni prazen, kar pomeni, da je bil recept uspešno shranjen
         Assertions.assertFalse(repo.findAll().isEmpty(), "Recipe should be saved in the repository.");
     }
 
+    // Negativen test: Poskus dodajanja nepopolnega recepta
+    @Test
+    void testAddRecipeWithMissingIngredients() {
+            // Ustvarite recept z manjkajočimi sestavinami
+            Recipes incompleteRecipe = new Recipes(null, FoodType.BAKERY, "Test Ingredients", "Test Instructions", null);
+    
+            // Poskusimo dodati recept, vendar bi morali ob tej situaciji pričakovati napako (nepopoln podatek).
+            Assertions.assertThrows(Exception.class, () -> {
+                controller.addRecipe(incompleteRecipe);
+            }, "Adding a recipe with missing ingredients should throw an exception.");
+    }
+
+    // Pozitiven test: Preverjanje vseh receptov
     @Test
     void testGetAllRecipes() {
-        repo.save(recipe); // Add a recipe to the repo
-        List<Recipes> recipes = controller.getAllRecipes(null);
+        repo.save(recipe);         // Shrani recept v bazo
+        List<Recipes> recipes = controller.getAllRecipes(null);     // Pokličemo metodo za pridobitev vseh receptov
+        // Preverimo, da se seznam receptov vrne z enim receptom
         Assertions.assertEquals(1, recipes.size(), "Should return one recipe.");
+    }
+
+    // Negativen test: Preverjanje, ko ni receptov
+    @Test
+    void testGetAllRecipesNoData() {
+        // Preverimo, da je seznam receptov prazen, ker nismo dodali nobenega recepta
+        List<Recipes> recipes = controller.getAllRecipes(null);
+        Assertions.assertTrue(recipes.isEmpty(), "Should return an empty list when no recipes are available.");
     }
 
     @Test
