@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.example.controller.RecipeController;
 import com.example.entity.FoodType;
@@ -73,12 +75,16 @@ public class RecipesControllerTest {
         recipe.setFoodType(FoodType.MEAL);
         repo.save(recipe);
 
-        // Act
         List<Recipes> meals = controller.getMeals();
 
-        // Assert
         Assertions.assertEquals(1, meals.size(), "Should return one meal.");
     }
+
+    @Test
+    void testGetMeals_NoMealsSaved() {
+     List<Recipes> meals = controller.getMeals();
+     Assertions.assertTrue(meals.isEmpty(), "Should return an empty list when no meals are saved.");
+ }
 
     @Test
     void testDeleteRecipe() {
@@ -87,6 +93,14 @@ public class RecipesControllerTest {
 
         // Ensure the recipe is deleted
         Assertions.assertFalse(repo.findById(savedRecipe.getId()).isPresent(), "Recipe should be deleted.");
+    }
+
+    @Test
+    void testDeleteRecipe_RecipeNotFound() {
+        // Arrange
+        Long nonExistentId = 999L; // Assuming this ID doesn't exist in the database
+        controller.deleteRecipe(nonExistentId);
+        Assertions.assertFalse(repo.findById(nonExistentId).isPresent(), "Recipe should not exist after attempting to delete a non-existent recipe.");
     }
 
     @Test
@@ -105,4 +119,22 @@ public class RecipesControllerTest {
         Assertions.assertNotNull(foundRecipe, "Recipe should exist after update.");
         Assertions.assertEquals("Updated Recipe", foundRecipe.getName(), "Recipe name should be updated.");
     }
+
+    @Test
+   void testUpdateRecipe_NoChangesSaved() {
+    Recipes recipeToUpdate = new Recipes("Original Recipe", FoodType.MEAL, "Ingredients", "Instructions", "image_path.jpg");
+    Recipes savedRecipe = repo.save(recipeToUpdate);  // Shrani recept
+    Long recipeId = savedRecipe.getId();
+    
+    // Poskušaj posodobiti recept z napačnimi podatki (prazno ime)
+    Recipes updatedRecipe = new Recipes("", FoodType.BAKERY, "Updated Ingredients", "Updated Instructions", "updated_image_path.jpg");
+    ResponseEntity<String> response = controller.updateRecipes(recipeId, updatedRecipe);
+    Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode(), "Invalid data should return BAD_REQUEST.");
+    
+    // Preverimo, da recept ni bil posodobljen (ime ostane nespremenjeno)
+    Recipes foundRecipe = repo.findById(recipeId).orElse(null);
+    Assertions.assertNotNull(foundRecipe, "Recipe should exist after update attempt.");
+    Assertions.assertEquals("Original Recipe", foundRecipe.getName(), "Recipe name should not have changed.");
+}
+
 }

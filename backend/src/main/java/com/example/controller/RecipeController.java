@@ -123,33 +123,40 @@ private String saveImageFile(MultipartFile file) throws Exception {
     private RecipesRepo recipesRepository;
 
     @PutMapping(path = "/updateRecipes/{id}")
-    public @ResponseBody ResponseEntity<String> updateRecipes(@PathVariable Long id, @RequestBody Recipes updatedRecipe) {
-        // Find the existing recipe by ID
-        Optional<Recipes> existingRecipeOpt = recipesRepository.findById(id);
+   public @ResponseBody ResponseEntity<String> updateRecipes(@PathVariable Long id, @RequestBody Recipes updatedRecipe) {
+    // Find the existing recipe by ID
+    Optional<Recipes> existingRecipeOpt = recipesRepository.findById(id);
 
-        // Check if the recipe exists
-        if (!existingRecipeOpt.isPresent()) {
-            return ResponseEntity.status(404).body("Recipe not found with ID: " + id);
-        }
-
-        // Update the existing recipe
-        Recipes existingRecipe = existingRecipeOpt.get();
-        existingRecipe.setName(updatedRecipe.getName());
-        existingRecipe.setFoodType(updatedRecipe.getFoodType());
-        existingRecipe.setIngredients(updatedRecipe.getIngredients());
-        existingRecipe.setInstructions(updatedRecipe.getInstructions());
-
-        // Optional: Update the image path if provided
-        if (updatedRecipe.getImagePath() != null && !updatedRecipe.getImagePath().isEmpty()) {
-            existingRecipe.setImagePath(updatedRecipe.getImagePath());
-        }
-
-        // Save the updated recipe to the database
-        recipesRepository.save(existingRecipe);
-
-        // Return success response
-        return ResponseEntity.ok("Updated");
+    // Check if the recipe exists
+    if (!existingRecipeOpt.isPresent()) {
+        return ResponseEntity.status(404).body("Recipe not found with ID: " + id);
     }
+
+    // Validate the updated recipe data (e.g., check for empty name)
+    if (updatedRecipe.getName() == null || updatedRecipe.getName().isEmpty()) {
+        // Returning BAD_REQUEST for invalid data
+        return ResponseEntity.status(400).body("Invalid recipe name, it cannot be empty.");
+    }
+
+    // Update the existing recipe
+    Recipes existingRecipe = existingRecipeOpt.get();
+    existingRecipe.setName(updatedRecipe.getName());
+    existingRecipe.setFoodType(updatedRecipe.getFoodType());
+    existingRecipe.setIngredients(updatedRecipe.getIngredients());
+    existingRecipe.setInstructions(updatedRecipe.getInstructions());
+
+    // Optional: Update the image path if provided
+    if (updatedRecipe.getImagePath() != null && !updatedRecipe.getImagePath().isEmpty()) {
+        existingRecipe.setImagePath(updatedRecipe.getImagePath());
+    }
+
+    // Save the updated recipe to the database
+    recipesRepository.save(existingRecipe);
+
+    // Return success response
+    return ResponseEntity.ok("Updated");
+}
+
 
      private final ExcelExportService excelExportService;
     public RecipeController(ExcelExportService excelExportService) {
