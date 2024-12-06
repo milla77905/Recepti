@@ -209,11 +209,14 @@ ul, ol {
   background-color: rgb(210, 42, 42);
   color: white;
   border: none;
+  border-radius: 5px; /* Rounded corners */
   padding: 10px 15px;
   margin: 5px;
   cursor: pointer;
 }
-
+.deleteButton:hover {
+  background-color: #b30000; 
+}
 .selectButton {
   background-color: #007bff; /* Bootstrap primary blue */
   color: white; /* Text color */
@@ -305,7 +308,7 @@ ul, ol {
 .exportButton {
   margin: 10px 0;
   padding: 10px 15px;
-  background-color: #28a745;
+  background-color: #ff8c42;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -314,8 +317,26 @@ ul, ol {
 }
 
 .exportButton:hover {
-  background-color: #218838;
+  background-color: #ed6a18;
 }
 .sort {
   margin-left: 250px;
+}
+.updatePortionButton {
+  margin-left: 10px;
+  padding: 5px 5px;
+  background-color: #ff8c42;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 130px;
+  font-size: 15px;
+  border-radius: 5px; /* Rounded corners */
+}
+.updatePortionInput {
+  width: 50px;
+  text-align: center;
+}
+.updatePortionButton:hover {
+  background-color: #ed6a18;
 }

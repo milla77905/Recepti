@@ -33,6 +33,10 @@ public class Recipes {
     @Version  
     private int version;
 
+    private int  portion; // New field for portion
+
+
+    
     // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { 
@@ -68,6 +72,11 @@ public class Recipes {
             throw new IllegalArgumentException("Instructions cannot be null or empty");
         }
         this.instructions = instructions; }
+    
+
+    public int getPortion() { return portion; }
+    public void setPortion(int portion) { this.portion = portion; }
+    
 
     public String getImagePath() { return imagePath; }
     public void setImagePath(String imagePath) { 
@@ -77,11 +86,13 @@ public class Recipes {
         this.imagePath = imagePath; }
 
     public Recipes() {}
-    public Recipes(String name, FoodType foodType, String ingredients, String instructions, String imagePath) {
+    public Recipes(String name, FoodType foodType, String ingredients, String instructions, String imagePath, int portion) {
         this.name = name;
         this.foodType = foodType;
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.imagePath = imagePath;
+        this.portion = portion;
+
     }
 }

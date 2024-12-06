@@ -29,7 +29,7 @@ public class RecipesControllerTest {
     @BeforeEach
     void init() {
         repo.deleteAll(); // Izbrišemo vse obstoječe podatke v bazi.
-        recipe = new Recipes("Test Recipe", FoodType.BAKERY, "Test Ingredients", "Test Instructions", "default_image_path.jpg");
+        recipe = new Recipes("Test Recipe", FoodType.BAKERY, "Test Ingredients", "Test Instructions", "default_image_path.jpg", 2);
     }
 
     // Pozitiven test: Dodajanje recepta
@@ -44,7 +44,7 @@ public class RecipesControllerTest {
     @Test
     void testAddRecipeWithMissingIngredients() {
             // Ustvarite recept z manjkajočimi sestavinami
-            Recipes incompleteRecipe = new Recipes(null, FoodType.BAKERY, "Test Ingredients", "Test Instructions", null);
+            Recipes incompleteRecipe = new Recipes(null, FoodType.BAKERY, "Test Ingredients", "Test Instructions", null, 2);
     
             // Poskusimo dodati recept, vendar bi morali ob tej situaciji pričakovati napako (nepopoln podatek).
             Assertions.assertThrows(Exception.class, () -> {
@@ -106,12 +106,12 @@ public class RecipesControllerTest {
     @Test
     void testUpdateRecipe() {
         // Arrange
-        Recipes recipe = new Recipes("Original Recipe", FoodType.MEAL, "Ingredients", "Instructions", "image_path.jpg");
+        Recipes recipe = new Recipes("Original Recipe", FoodType.MEAL, "Ingredients", "Instructions", "image_path.jpg", 2);
         Recipes savedRecipe = repo.save(recipe);
 
         savedRecipe = repo.findById(savedRecipe.getId()).orElse(null);
 
-        Recipes updatedRecipe = new Recipes("Updated Recipe", FoodType.BAKERY, "Updated Ingredients", "Updated Instructions", "updated_image_path.jpg");
+        Recipes updatedRecipe = new Recipes("Updated Recipe", FoodType.BAKERY, "Updated Ingredients", "Updated Instructions", "updated_image_path.jpg", 2);
 
         controller.updateRecipes(savedRecipe.getId(), updatedRecipe);
 
@@ -122,12 +122,12 @@ public class RecipesControllerTest {
 
     @Test
    void testUpdateRecipe_NoChangesSaved() {
-    Recipes recipeToUpdate = new Recipes("Original Recipe", FoodType.MEAL, "Ingredients", "Instructions", "image_path.jpg");
+    Recipes recipeToUpdate = new Recipes("Original Recipe", FoodType.MEAL, "Ingredients", "Instructions", "image_path.jpg", 2);
     Recipes savedRecipe = repo.save(recipeToUpdate);  // Shrani recept
     Long recipeId = savedRecipe.getId();
     
     // Poskušaj posodobiti recept z napačnimi podatki (prazno ime)
-    Recipes updatedRecipe = new Recipes("", FoodType.BAKERY, "Updated Ingredients", "Updated Instructions", "updated_image_path.jpg");
+    Recipes updatedRecipe = new Recipes("", FoodType.BAKERY, "Updated Ingredients", "Updated Instructions", "updated_image_path.jpg", 2);
     ResponseEntity<String> response = controller.updateRecipes(recipeId, updatedRecipe);
     Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode(), "Invalid data should return BAD_REQUEST.");
     

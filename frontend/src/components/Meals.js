@@ -7,6 +7,7 @@ const Meals = () => {
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [selectedRecipes, setSelectedRecipes] = useState([]); // Store selected recipes
     const [sortOrder, setSortOrder] = useState('type');
+    const [portion, setPortion] = useState(1); // Default portion value is 1
 
     useEffect(() => {
         fetchAllRecipes();
@@ -151,6 +152,34 @@ const Meals = () => {
         });
     };
 
+    // Handle portion update
+    const handlePortionChange = async (recipeId, newPortion) => {
+        try {
+            const response = await fetch(`http://localhost:8080/recipes/update-portion/${recipeId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newPortion),
+            });
+
+            if (response.ok) {
+                const updatedRecipe = await response.json();
+                setRecipes((prevRecipes) =>
+                    prevRecipes.map((recipe) =>
+                        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
+                    )
+                );
+                alert('Portion updated successfully!');
+            } else {
+                alert('Failed to update portion.');
+            }
+        } catch (error) {
+            console.error('Error updating portion:', error);
+            alert('An error occurred while updating the portion.');
+        }
+    };
+
     const sortedRecipes = sortRecipes([...recipes], sortOrder);
     return (
         <div>
@@ -201,6 +230,21 @@ const Meals = () => {
                                         <li key={index}>{ingredient}</li>
                                     ))}
                                 </ul>
+                                <div>
+                                    <h6><strong>Portion:</strong></h6>
+                                    <input className={styles.updatePortionInput}
+                                        type="number"
+                                        value={portion}
+                                        min="1"
+                                        onChange={(e) => setPortion(e.target.value)}
+                                    />
+                                    <button
+                                        onClick={() => handlePortionChange(recipe.id, portion)}
+                                        className={styles.updatePortionButton}
+                                    >
+                                        Update Portion
+                                    </button>
+                                </div>
                                 <button
                                     className={styles.selectButton}
                                     onClick={() => handleSelect(recipe)}
