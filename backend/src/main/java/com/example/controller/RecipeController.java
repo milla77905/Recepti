@@ -46,9 +46,11 @@ public class RecipeController {
             @RequestPart("data") String recipeRequestString,
             @RequestPart(value = "image", required = false) MultipartFile imageFile) {
         try {
+            System.out.println(recipeRequestString);
             // Deserialize JSON string into Recipes object
             ObjectMapper objectMapper = new ObjectMapper();
             Recipes recipe = objectMapper.readValue(recipeRequestString, Recipes.class);
+            recipe.setPortion(1);
 
             // Validate required fields
             if (recipe.getName() == null || recipe.getName().isEmpty()) {
@@ -170,5 +172,39 @@ private String saveImageFile(MultipartFile file) throws Exception {
         excelExportService.exportRecipesToExcel(recipeIds, response.getOutputStream());
         response.getOutputStream().flush();
     }
+
+    @GetMapping("/portion")
+    public ResponseEntity<String> changePortion(@RequestParam Long recipeId, @RequestParam int portionCount) {
+        Recipes recipe = recipesRepository.findById(recipeId).get();
+//        Recipes recipe = new Recipes("Name", FoodType.MEAL, "1 tbs of sugar 2 kg of flower", "mix ingredientes", "", 1);
+        System.out.println(recipe);
+        return ResponseEntity.ok(increaseNumbers(recipe.getIngredients(), portionCount));
+    }
+
+    public static String increaseNumbers(String input, int factor) {
+        StringBuilder result = new StringBuilder();
+        StringBuilder numberBuffer = new StringBuilder();
+
+        // Iterate over each character in the input string
+        for (char c : input.toCharArray()) {
+            if (Character.isDigit(c)) {
+                numberBuffer.append(c); // Collect digits into the buffer
+            } else {
+                if (numberBuffer.length() > 0) {
+                    int number = Integer.parseInt(numberBuffer.toString());
+                    result.append(number * factor); // Multiply and append the number
+                    numberBuffer.setLength(0); // Clear the buffer
+                }
+                result.append(c); // Append non-digit characters
+            }
+        }
+        // Process any remaining number in the buffer
+        if (numberBuffer.length() > 0) {
+            int number = Integer.parseInt(numberBuffer.toString());
+            result.append(number * factor);
+        }
+        return result.toString();
+    }
+
 
 }
