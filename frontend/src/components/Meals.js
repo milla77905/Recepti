@@ -7,7 +7,7 @@ const Meals = () => {
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [selectedRecipes, setSelectedRecipes] = useState([]); // Store selected recipes
     const [sortOrder, setSortOrder] = useState('type');
-    const [portion, setPortion] = useState(1); // Default portion value is 1
+    const [portionValues, setPortionValues] = useState({}); 
 
     useEffect(() => {
         fetchAllRecipes();
@@ -152,33 +152,56 @@ const Meals = () => {
         });
     };
 
-    // Handle portion update
-    const handlePortionChange = async (recipeId, newPortion) => {
+    const handlePortionInputChange = (recipeId, value) => {
+        setPortionValues((prev) => ({
+            ...prev,
+            [recipeId]: value,
+        }));
+    };
+    
+    
+    const handlePortionChange = async (recipeId) => {
+        const portionCount = parseInt(portionValues[recipeId], 10) || 1;
+    
         try {
-            const response = await fetch(`http://localhost:8080/recipes/update-portion/${recipeId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newPortion),
-            });
-
-            if (response.ok) {
-                const updatedRecipe = await response.json();
-                setRecipes((prevRecipes) =>
-                    prevRecipes.map((recipe) =>
-                        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
-                    )
-                );
-                alert('Portion updated successfully!');
-            } else {
-                alert('Failed to update portion.');
+            const response = await fetch(
+                `http://localhost:8080/recipes/update-portion?recipeId=${recipeId}&portionCount=${portionCount}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+    
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                throw new Error(`Backend Error: ${errorMessage}`);
             }
+    
+            const updatedIngredients = await response.text();
+    
+            // Update recipes state with the new ingredients
+            setRecipes((prevRecipes) =>
+                prevRecipes.map((recipe) =>
+                    recipe.id === recipeId
+                        ? {
+                              ...recipe,
+                              portion: portionCount,
+                              ingredients: updatedIngredients,
+                          }
+                        : recipe
+                )
+            );
+    
+            alert('Ingredients updated successfully!');
         } catch (error) {
-            console.error('Error updating portion:', error);
-            alert('An error occurred while updating the portion.');
+            console.error('Error:', error);
+            alert('Failed to update ingredients!');
         }
     };
+    
+    
 
     const sortedRecipes = sortRecipes([...recipes], sortOrder);
     return (
@@ -232,18 +255,19 @@ const Meals = () => {
                                 </ul>
                                 <div>
                                     <h6><strong>Portion:</strong></h6>
-                                    <input className={styles.updatePortionInput}
-                                        type="number"
-                                        value={portion}
-                                        min="1"
-                                        onChange={(e) => setPortion(e.target.value)}
-                                    />
-                                    <button
-                                        onClick={() => handlePortionChange(recipe.id, portion)}
-                                        className={styles.updatePortionButton}
-                                    >
-                                        Update Portion
-                                    </button>
+                                    <input
+                                className={styles.updatePortionInput}
+                                type="number"
+                                value={portionValues[recipe.id] || 1} // Default to 1 if not set
+                                min="1"
+                                onChange={(e) => handlePortionInputChange(recipe.id, e.target.value)}
+                            />
+                            <button
+                                onClick={() => handlePortionChange(recipe.id)}
+                                className={styles.updatePortionButton}
+                            >
+                                Update Portion
+                            </button>
                                 </div>
                                 <button
                                     className={styles.selectButton}

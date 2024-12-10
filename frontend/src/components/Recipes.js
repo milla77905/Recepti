@@ -113,7 +113,7 @@ const Recipes = () => {
                         name="ingredients"
                         value={recipeData.ingredients}
                         onChange={handleInputChange}
-                        rows="5"
+                        rows="10"
                         placeholder="List the ingredients required"
                         required
                     />

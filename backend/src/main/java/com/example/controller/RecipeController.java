@@ -174,37 +174,122 @@ private String saveImageFile(MultipartFile file) throws Exception {
     }
 
     @GetMapping("/portion")
-    public ResponseEntity<String> changePortion(@RequestParam Long recipeId, @RequestParam int portionCount) {
-        Recipes recipe = recipesRepository.findById(recipeId).get();
-//        Recipes recipe = new Recipes("Name", FoodType.MEAL, "1 tbs of sugar 2 kg of flower", "mix ingredientes", "", 1);
-        System.out.println(recipe);
-        return ResponseEntity.ok(increaseNumbers(recipe.getIngredients(), portionCount));
+    public ResponseEntity<String> changePortion(
+        @RequestParam Long recipeId,
+        @RequestParam int portionCount
+    ) {
+        Optional<Recipes> optionalRecipe = recipesRepository.findById(recipeId);
+        if (optionalRecipe.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+    
+        Recipes recipe = optionalRecipe.get();
+        String modifiedIngredients;
+    
+        if (portionCount >= recipe.getPortion()) {
+            // Scale up: Increase ingredients by `increaseNumbers`
+            modifiedIngredients = increaseNumbers(recipe.getIngredients(), portionCount);
+        } else {
+            // Scale down: Proportional scaling
+            modifiedIngredients = scaleIngredients(recipe.getIngredients(), recipe.getPortion(), portionCount);
+        }
+    
+        // Update the database with the new portion
+        recipe.setPortion(portionCount);
+        recipesRepository.save(recipe);
+    
+        return ResponseEntity.ok(modifiedIngredients);
     }
-
+    
+    // Original Increase Numbers Logic
     public static String increaseNumbers(String input, int factor) {
         StringBuilder result = new StringBuilder();
         StringBuilder numberBuffer = new StringBuilder();
-
-        // Iterate over each character in the input string
+    
         for (char c : input.toCharArray()) {
             if (Character.isDigit(c)) {
-                numberBuffer.append(c); // Collect digits into the buffer
+                numberBuffer.append(c);
             } else {
                 if (numberBuffer.length() > 0) {
                     int number = Integer.parseInt(numberBuffer.toString());
-                    result.append(number * factor); // Multiply and append the number
-                    numberBuffer.setLength(0); // Clear the buffer
+                    result.append(number * factor);
+                    numberBuffer.setLength(0);
                 }
-                result.append(c); // Append non-digit characters
+                result.append(c);
             }
         }
-        // Process any remaining number in the buffer
+    
         if (numberBuffer.length() > 0) {
             int number = Integer.parseInt(numberBuffer.toString());
             result.append(number * factor);
         }
+    
         return result.toString();
     }
+    
+    // Proportional scaling logic
+    public static String scaleIngredients(String input, int oldPortion, int newPortion) {
+        if (oldPortion == 0) {
+            oldPortion = 1; // Avoid divide-by-zero issues
+        }
+    
+        double ratio = (double) newPortion / oldPortion;
+    
+        StringBuilder result = new StringBuilder();
+        StringBuilder numberBuffer = new StringBuilder();
+    
+        for (char c : input.toCharArray()) {
+            if (Character.isDigit(c)) {
+                numberBuffer.append(c);
+            } else {
+                if (numberBuffer.length() > 0) {
+                    double number = Integer.parseInt(numberBuffer.toString());
+                    number = number * ratio;
+                    result.append(Math.round(number));
+                    numberBuffer.setLength(0);
+                }
+                result.append(c);
+            }
+        }
+    
+        if (numberBuffer.length() > 0) {
+            double number = Integer.parseInt(numberBuffer.toString());
+            number = number * ratio;
+            result.append(Math.round(number));
+        }
+    
+        return result.toString();
+    }
+    
 
+    @PutMapping("/update-portion")
+public ResponseEntity<String> updatePortion(
+    @RequestParam Long recipeId,
+    @RequestParam int portionCount
+) {
+    Optional<Recipes> optionalRecipe = recipesRepository.findById(recipeId);
+    if (optionalRecipe.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Recipe not found.");
+    }
+
+    Recipes recipe = optionalRecipe.get();
+    String modifiedIngredients;
+
+    // If the portionCount is greater than the old portion, apply "increaseNumbers"
+    if (portionCount >= recipe.getPortion()) {
+        modifiedIngredients = increaseNumbers(recipe.getIngredients(), portionCount);
+    } else {
+        // Otherwise, scale proportionally
+        modifiedIngredients = scaleIngredients(recipe.getIngredients(), recipe.getPortion(), portionCount);
+    }
+
+    // Update the recipe's portion and ingredients
+    recipe.setPortion(portionCount);
+    recipe.setIngredients(modifiedIngredients);
+    recipesRepository.save(recipe);
+
+    return ResponseEntity.ok(modifiedIngredients);
+}
 
 }
+
