@@ -28,15 +28,16 @@ public class Recipes {
     @Column(columnDefinition = "TEXT")
     private String instructions;
 
+
     private String imagePath; 
 
     @Version  
     private int version;
 
-    private int  portion; // New field for portion
+    private int  portion; 
 
+    private String calories;
 
-    
     // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { 
@@ -66,6 +67,7 @@ public class Recipes {
         }
         this.ingredients = ingredients; }
 
+        
     public String getInstructions() { return instructions; }
     public void setInstructions(String instructions) { 
         if (instructions == null || instructions.trim().isEmpty()) {  
@@ -73,10 +75,12 @@ public class Recipes {
         }
         this.instructions = instructions; }
     
-
+        
     public int getPortion() { return portion; }
     public void setPortion(int portion) { this.portion = portion; }
-    
+
+    public String getCalories() { return calories; }
+    public void setCalories(String calories) { this.calories = calories; }
 
     public String getImagePath() { return imagePath; }
     public void setImagePath(String imagePath) { 
@@ -86,13 +90,13 @@ public class Recipes {
         this.imagePath = imagePath; }
 
     public Recipes() {}
-    public Recipes(String name, FoodType foodType, String ingredients, String instructions, String imagePath, int portion) {
+    public Recipes(String name, FoodType foodType, String ingredients, String instructions, String imagePath, int portion, String calories) {
         this.name = name;
         this.foodType = foodType;
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.imagePath = imagePath;
         this.portion = portion;
-
+        this.calories = calories;
     }
 }
