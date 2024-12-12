@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -7,6 +8,7 @@ const Recipes = () => {
     const [recipeData, setRecipeData] = useState({
         name: '',
         ingredients: '',
+        calories: '',
         instructions: '',
         foodType: '', // Enum value will be set here
         image: null,
@@ -41,10 +43,10 @@ const Recipes = () => {
         e.preventDefault();
 
         const formData = new FormData();
-        const { foodType, name, ingredients, instructions, image } = recipeData;
+        const { foodType, name, ingredients, calories, instructions, image } = recipeData;
 
         // Append data to formData
-        formData.append('data', JSON.stringify({ foodType, name, ingredients, instructions }));
+        formData.append('data', JSON.stringify({ foodType, name, ingredients, calories ,instructions }));
         if (image) formData.append('image', image);
 
         try {
@@ -117,9 +119,20 @@ const Recipes = () => {
                         placeholder="List the ingredients required"
                         required
                     />
-
+                    
+                    {/* Calories */}
+                    <label htmlFor="calories">Calories:</label>
+                    <textarea
+                        id="calories"
+                        name="calories"
+                        value={recipeData.calories}
+                        onChange={handleInputChange}
+                        rows="10"
+                        placeholder="List the calories here"
+                        required
+                    />
                     {/* Instructions */}
-                    <label htmlFor="instructions">Description:</label>
+                    <label htmlFor="instructions">Instructions:</label>
                     <textarea
                         id="instructions"
                         name="instructions"

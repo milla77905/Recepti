@@ -8,6 +8,8 @@ const Meals = () => {
     const [selectedRecipes, setSelectedRecipes] = useState([]); // Store selected recipes
     const [sortOrder, setSortOrder] = useState('type');
     const [portionValues, setPortionValues] = useState({}); 
+    const [showDetails, setShowDetails] = useState({}); // Sledi stanju prikaza/skritja za vsak recept
+
 
     useEffect(() => {
         fetchAllRecipes();
@@ -35,6 +37,13 @@ const Meals = () => {
         }
     };
     
+    const handleToggleDetails = (id) => {
+        setShowDetails((prev) => ({
+            ...prev,
+            [id]: !prev[id], // Preklopi stanje za določen recept
+        }));
+    };
+    
 
     // Handle selection of recipes (checkbox)
     const handleSelectRecipe = (id) => {
@@ -52,6 +61,7 @@ const Meals = () => {
                 name: selectedRecipe.name,
                 foodType: selectedRecipe.type, 
                 ingredients: selectedRecipe.ingredients,
+                calories: selectedRecipe.calories,
                 instructions: selectedRecipe.instructions,
                 imagePath: selectedRecipe.imagePath,
             };
@@ -120,6 +130,7 @@ const Meals = () => {
             Name: recipe.name,
             Type: recipe.foodType,
             Ingredients: recipe.ingredients,
+            Calories: recipe.calories,
             Instructions: recipe.instructions,
             Image_Path: recipe.imagePath, 
         })));
@@ -179,25 +190,27 @@ const Meals = () => {
                 throw new Error(`Backend Error: ${errorMessage}`);
             }
     
-            const updatedIngredients = await response.text();
+            const updatedData = await response.json(); // Expecting both ingredients and calories
+            const { updatedIngredients, updatedCalories } = updatedData;
     
-            // Update recipes state with the new ingredients
+            // Update recipes state with the new ingredients and calories
             setRecipes((prevRecipes) =>
                 prevRecipes.map((recipe) =>
                     recipe.id === recipeId
                         ? {
-                              ...recipe,
-                              portion: portionCount,
-                              ingredients: updatedIngredients,
-                          }
+                            ...recipe,
+                            portion: portionCount,
+                            ingredients: updatedIngredients,
+                            calories: updatedCalories, // Update calories as well
+                        }
                         : recipe
                 )
             );
     
-            alert('Ingredients updated successfully!');
+            alert('Ingredients and calories updated successfully!');
         } catch (error) {
             console.error('Error:', error);
-            alert('Failed to update ingredients!');
+            alert('Failed to update ingredients and calories!');
         }
     };
     
@@ -245,7 +258,7 @@ const Meals = () => {
 
                                 <h6>{recipe.type}</h6>
                                 <h4>{recipe.name}</h4>
-                                <h5>Description:</h5>
+                                <h5>Instructions:</h5>
                                 <p>{recipe.instructions}</p>
                                 <h5>Ingredients:</h5>
                                 <ul className={styles.ingredients}>
@@ -253,36 +266,55 @@ const Meals = () => {
                                         <li key={index}>{ingredient}</li>
                                     ))}
                                 </ul>
-                                <div>
-                                    <h6><strong>Portion:</strong></h6>
-                                    <input
-                                className={styles.updatePortionInput}
-                                type="number"
-                                value={portionValues[recipe.id] || 1} // Default to 1 if not set
-                                min="1"
-                                onChange={(e) => handlePortionInputChange(recipe.id, e.target.value)}
-                            />
-                            <button
-                                onClick={() => handlePortionChange(recipe.id)}
-                                className={styles.updatePortionButton}
+ 
+                                <button
+                                className={styles.toggleButton}
+                                 onClick={() => handleToggleDetails(recipe.id)}
+                                  >
+                                 {showDetails[recipe.id] ? 'Show Less' : 'Show More'}
+                                 </button>
+                                 
+                                {/* Skrite podrobnosti - Calories in gumbi */}
+                                {showDetails[recipe.id] && (
+                                 <>
+                                <h5>Calories:</h5>
+                                <ul className={styles.calories}>
+                                {recipe.calories.split(',').map((calorie, index) => (
+                                 <li key={index}>{calorie}</li>
+                                 ))}
+                                   </ul>
+                          <div>
+                  <h6><strong>Portion:</strong></h6>
+                  <input
+                className={styles.updatePortionInput}
+                type="number"
+                value={portionValues[recipe.id] || 1} 
+                min="1"
+                onChange={(e) => handlePortionInputChange(recipe.id, e.target.value)}
+                />
+               <button
+                onClick={() => handlePortionChange(recipe.id)}
+                className={styles.updatePortionButton}
+            >
+                Update Portion
+               </button>
+              </div>
+                <button
+                className={styles.selectButton}
+                    onClick={() => handleSelect(recipe)}
+                    >
+                    Select
+                    </button>
+                    <button
+                    className={styles.deleteButton}
+                    onClick={() => handleDelete(recipe.id)}
                             >
-                                Update Portion
-                            </button>
-                                </div>
-                                <button
-                                    className={styles.selectButton}
-                                    onClick={() => handleSelect(recipe)}
-                                >
-                                    Select
-                                </button>
-                                <button
-                                    className={styles.deleteButton}
-                                    onClick={() => handleDelete(recipe.id)}
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
+                     Delete
+                     </button>
+                     </>
+                    )}
+                     </div>
+                    </div>
                     ))}
                 </div>
             </div>
@@ -334,6 +366,15 @@ const Meals = () => {
                                 name="ingredients"
                                 value={selectedRecipe.ingredients}
                                 onChange={(e) => setSelectedRecipe({ ...selectedRecipe, ingredients: e.target.value })}
+                            />
+                        </label>
+                        <label>
+                            Calories:
+                            <input
+                                type="text"
+                                name="calories"
+                                value={selectedRecipe.calories}
+                                onChange={(e) => setSelectedRecipe({ ...selectedRecipe, calories: e.target.value })}
                             />
                         </label>
                         <label>

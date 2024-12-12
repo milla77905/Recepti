@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/modal.module.css'; 
+import styles from '../styles/modal.module.css';
 
 const RecipeModal = ({ recipe, onClose }) => {
     return (
@@ -10,6 +10,9 @@ const RecipeModal = ({ recipe, onClose }) => {
                 <img src={`http://localhost:8080/images/${recipe.imagePath}`} alt={recipe.imagePath} className={styles.modalImage} />
                 <h5>Ingredients:</h5>
                 <p>{recipe.ingredients}</p>
+                <h5>Calories:</h5>
+                <p>{recipe.calories}</p>
+
                 <h5>Instructions:</h5>
                 <p>{recipe.instructions}</p>
             </div>
