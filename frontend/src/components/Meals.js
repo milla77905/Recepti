@@ -277,7 +277,7 @@ const Meals = () => {
                                 {/* Skrite podrobnosti - Calories in gumbi */}
                                 {showDetails[recipe.id] && (
                                  <>
-                                <h5>Calories:</h5>
+                                <h5>Nutritional values:</h5>
                                 <ul className={styles.calories}>
                                 {recipe.calories.split(',').map((calorie, index) => (
                                  <li key={index}>{calorie}</li>

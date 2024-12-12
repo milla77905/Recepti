@@ -3,7 +3,9 @@ package com.example.controller;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,40 +174,48 @@ private String saveImageFile(MultipartFile file) throws Exception {
         excelExportService.exportRecipesToExcel(recipeIds, response.getOutputStream());
         response.getOutputStream().flush();
     }
+    @PutMapping("/update-portion")
+    public ResponseEntity<Map<String, Object>> updatePortion(
+            @RequestParam Long recipeId,
+            @RequestParam int portionCount) {
 
-    @GetMapping("/portion")
-    public ResponseEntity<String> changePortion(
-        @RequestParam Long recipeId,
-        @RequestParam int portionCount
-    ) {
         Optional<Recipes> optionalRecipe = recipesRepository.findById(recipeId);
         if (optionalRecipe.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Recipe not found."));
         }
-    
+
         Recipes recipe = optionalRecipe.get();
         String modifiedIngredients;
-    
+        String modifiedCalories;
+
+        // If the portionCount is greater than the old portion, apply "increaseNumbers"
         if (portionCount >= recipe.getPortion()) {
-            // Scale up: Increase ingredients by `increaseNumbers`
             modifiedIngredients = increaseNumbers(recipe.getIngredients(), portionCount);
+            modifiedCalories = increaseNumbers(recipe.getCalories(), portionCount);
         } else {
-            // Scale down: Proportional scaling
+            // Otherwise, scale proportionally
             modifiedIngredients = scaleIngredients(recipe.getIngredients(), recipe.getPortion(), portionCount);
+            modifiedCalories = scaleIngredients(recipe.getCalories(), recipe.getPortion(), portionCount);
         }
-    
-        // Update the database with the new portion
+
+        // Update the recipe's portion, ingredients, and calories
         recipe.setPortion(portionCount);
+        recipe.setIngredients(modifiedIngredients);
+        recipe.setCalories(modifiedCalories);  // Update calories
         recipesRepository.save(recipe);
-    
-        return ResponseEntity.ok(modifiedIngredients);
+
+        // Return both updated ingredients and calories
+        Map<String, Object> response = new HashMap<>();
+        response.put("updatedIngredients", modifiedIngredients);
+        response.put("updatedCalories", modifiedCalories);
+        return ResponseEntity.ok(response);
     }
-    
-    // Original Increase Numbers Logic
-    public static String increaseNumbers(String input, int factor) {
+
+    // Helper methods for handling ingredient and calorie scaling
+    private String increaseNumbers(String input, int factor) {
         StringBuilder result = new StringBuilder();
         StringBuilder numberBuffer = new StringBuilder();
-    
+
         for (char c : input.toCharArray()) {
             if (Character.isDigit(c)) {
                 numberBuffer.append(c);
@@ -218,26 +228,25 @@ private String saveImageFile(MultipartFile file) throws Exception {
                 result.append(c);
             }
         }
-    
+
         if (numberBuffer.length() > 0) {
             int number = Integer.parseInt(numberBuffer.toString());
             result.append(number * factor);
         }
-    
+
         return result.toString();
     }
-    
-    // Proportional scaling logic
-    public static String scaleIngredients(String input, int oldPortion, int newPortion) {
+
+    private String scaleIngredients(String input, int oldPortion, int newPortion) {
         if (oldPortion == 0) {
             oldPortion = 1; // Avoid divide-by-zero issues
         }
-    
+
         double ratio = (double) newPortion / oldPortion;
-    
+
         StringBuilder result = new StringBuilder();
         StringBuilder numberBuffer = new StringBuilder();
-    
+
         for (char c : input.toCharArray()) {
             if (Character.isDigit(c)) {
                 numberBuffer.append(c);
@@ -251,45 +260,13 @@ private String saveImageFile(MultipartFile file) throws Exception {
                 result.append(c);
             }
         }
-    
+
         if (numberBuffer.length() > 0) {
             double number = Integer.parseInt(numberBuffer.toString());
             number = number * ratio;
             result.append(Math.round(number));
         }
-    
+
         return result.toString();
     }
-    
-
-    @PutMapping("/update-portion")
-public ResponseEntity<String> updatePortion(
-    @RequestParam Long recipeId,
-    @RequestParam int portionCount
-) {
-    Optional<Recipes> optionalRecipe = recipesRepository.findById(recipeId);
-    if (optionalRecipe.isEmpty()) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Recipe not found.");
-    }
-
-    Recipes recipe = optionalRecipe.get();
-    String modifiedIngredients;
-
-    // If the portionCount is greater than the old portion, apply "increaseNumbers"
-    if (portionCount >= recipe.getPortion()) {
-        modifiedIngredients = increaseNumbers(recipe.getIngredients(), portionCount);
-    } else {
-        // Otherwise, scale proportionally
-        modifiedIngredients = scaleIngredients(recipe.getIngredients(), recipe.getPortion(), portionCount);
-    }
-
-    // Update the recipe's portion and ingredients
-    recipe.setPortion(portionCount);
-    recipe.setIngredients(modifiedIngredients);
-    recipesRepository.save(recipe);
-
-    return ResponseEntity.ok(modifiedIngredients);
 }
-
-}
-
