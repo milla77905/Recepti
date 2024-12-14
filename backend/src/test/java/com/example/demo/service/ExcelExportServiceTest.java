@@ -29,7 +29,7 @@ class ExcelExportServiceTest {
     @Test
     void testExportRecipesToExcel() {
         // Arrange: shranimo recept, ki ga bomo izvozili.
-        final Recipes savedRecipe = repo.save(new Recipes("Export Recipe", FoodType.MEAL, "Ingredients", "Instructions", "default_image_path.jpg", 2, null));
+        final Recipes savedRecipe = repo.save(new Recipes("Export Recipe", FoodType.MEAL, "Ingredients", "Instructions", "default_image_path.jpg", 2, 23,23,23,23));
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         // Act & Assert: Preverimo, da izvoza ne spremljajo napake.

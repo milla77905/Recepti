@@ -186,28 +186,40 @@ private String saveImageFile(MultipartFile file) throws Exception {
 
         Recipes recipe = optionalRecipe.get();
         String modifiedIngredients;
-        String modifiedCalories;
 
         // If the portionCount is greater than the old portion, apply "increaseNumbers"
         if (portionCount >= recipe.getPortion()) {
             modifiedIngredients = increaseNumbers(recipe.getIngredients(), portionCount);
-            modifiedCalories = increaseNumbers(recipe.getCalories(), portionCount);
         } else {
             // Otherwise, scale proportionally
             modifiedIngredients = scaleIngredients(recipe.getIngredients(), recipe.getPortion(), portionCount);
-            modifiedCalories = scaleIngredients(recipe.getCalories(), recipe.getPortion(), portionCount);
         }
+// Izračunaj razmerje porcij
+double oldPortion = recipe.getPortion();
+double ratio = oldPortion == 0 ? 1 : (double) portionCount / oldPortion;
+
+// Posodobi vse hranilne vrednosti
+double updatedCalories = recipe.getCalories() * ratio;
+double updatedProtein = recipe.getProtein() * ratio;
+double updatedFats = recipe.getFats() * ratio;
+double updatedCarbohydrates = recipe.getCarbohydrates() * ratio;
 
         // Update the recipe's portion, ingredients, and calories
         recipe.setPortion(portionCount);
         recipe.setIngredients(modifiedIngredients);
-        recipe.setCalories(modifiedCalories);  // Update calories
+        recipe.setCalories(updatedCalories);
+    recipe.setProtein(updatedProtein);
+    recipe.setFats(updatedFats);
+    recipe.setCarbohydrates(updatedCarbohydrates);
         recipesRepository.save(recipe);
 
         // Return both updated ingredients and calories
         Map<String, Object> response = new HashMap<>();
         response.put("updatedIngredients", modifiedIngredients);
-        response.put("updatedCalories", modifiedCalories);
+        response.put("updatedCalories", updatedCalories);
+    response.put("updatedProtein", updatedProtein);
+    response.put("updatedFats", updatedFats);
+    response.put("updatedCarbohydrates", updatedCarbohydrates);
         return ResponseEntity.ok(response);
     }
 
