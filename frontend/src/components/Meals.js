@@ -224,6 +224,25 @@ const Meals = () => {
             alert('Failed to update portion!');
         }
     };
+
+    const dailyGoals = {
+        calories: 2000, 
+        protein: 50,   
+        fats: 70,       
+        carbohydrates: 300 
+    };
+    const calculateDailyPercentage = (recipe) => {
+    
+        const percentage = {
+            calories: (recipe.calories  / dailyGoals.calories) * 100,
+            protein: (recipe.protein  / dailyGoals.protein) * 100,
+            fats: (recipe.fats  / dailyGoals.fats) * 100,
+            carbohydrates: (recipe.carbohydrates  / dailyGoals.carbohydrates) * 100
+        };
+    
+        return percentage;
+    };
+    
     
     
 
@@ -293,6 +312,14 @@ const Meals = () => {
                                 <p>Fats: {recipe.fats}g</p>
                                 <p>Carbohydrates: {recipe.carbohydrates}g</p>
                                 <p>Calories: {recipe.calories} kcal</p>
+
+                                {/* Add daily nutritional goals percentage */}
+        <h5>Daily Nutritional Goals:</h5>
+        <p>Calories: {calculateDailyPercentage(recipe).calories.toFixed(2)}%</p>
+        <p>Protein: {calculateDailyPercentage(recipe).protein.toFixed(2)}%</p>
+        <p>Fats: {calculateDailyPercentage(recipe).fats.toFixed(2)}%</p>
+        <p>Carbohydrates: {calculateDailyPercentage(recipe).carbohydrates.toFixed(2)}%</p>
+
                                 <div>
                                         <h6><strong>Portion:</strong></h6>
                                         <input
