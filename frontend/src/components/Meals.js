@@ -27,7 +27,8 @@ const Meals = () => {
             const updatedData = data.map((recipe) => ({
                 ...recipe,
                 imagePath: recipe.imagePath ? `http://localhost:8080${recipe.imagePath}` : '', // Append backend URL if imagePath exists
-                type: recipe.foodType, // Map "foodType" to "type" for UI use
+                type: recipe.foodType,
+                portion: recipe.portion || 1, // Map "foodType" to "type" for UI use
             }));
 
             setRecipes(updatedData);
@@ -62,6 +63,9 @@ const Meals = () => {
                 foodType: selectedRecipe.type, 
                 ingredients: selectedRecipe.ingredients,
                 calories: selectedRecipe.calories,
+                protein: selectedRecipe.protein,
+                fats: selectedRecipe.fats,
+                carbohydrates: selectedRecipe.carbohydrates,
                 instructions: selectedRecipe.instructions,
                 imagePath: selectedRecipe.imagePath,
             };
@@ -131,6 +135,9 @@ const Meals = () => {
             Type: recipe.foodType,
             Ingredients: recipe.ingredients,
             Calories: recipe.calories,
+            Protein: recipe.protein,
+            Fats: recipe.fats,
+            Carbohydrates: recipe.carbohydrates,
             Instructions: recipe.instructions,
             Image_Path: recipe.imagePath, 
         })));
@@ -173,7 +180,7 @@ const Meals = () => {
     
     const handlePortionChange = async (recipeId) => {
         const portionCount = parseInt(portionValues[recipeId], 10) || 1;
-    
+
         try {
             const response = await fetch(
                 `http://localhost:8080/recipes/update-portion?recipeId=${recipeId}&portionCount=${portionCount}`,
@@ -184,16 +191,17 @@ const Meals = () => {
                     },
                 }
             );
-    
+
             if (!response.ok) {
                 const errorMessage = await response.text();
                 throw new Error(`Backend Error: ${errorMessage}`);
             }
-    
+
             const updatedData = await response.json(); // Expecting both ingredients and calories
-            const { updatedIngredients, updatedCalories } = updatedData;
-    
-            // Update recipes state with the new ingredients and calories
+
+            const { updatedIngredients, updatedCalories, updatedProtein, updatedFats, updatedCarbohydrates } = updatedData;
+
+            // Update recipes state with the new portion data
             setRecipes((prevRecipes) =>
                 prevRecipes.map((recipe) =>
                     recipe.id === recipeId
@@ -201,16 +209,19 @@ const Meals = () => {
                             ...recipe,
                             portion: portionCount,
                             ingredients: updatedIngredients,
-                            calories: updatedCalories, // Update calories as well
+                            calories: updatedCalories,
+                            protein: updatedProtein,
+                            fats: updatedFats,
+                            carbohydrates: updatedCarbohydrates,
                         }
                         : recipe
                 )
             );
-    
-            alert('Ingredients and calories updated successfully!');
+
+            alert('Portion updated successfully!');
         } catch (error) {
             console.error('Error:', error);
-            alert('Failed to update ingredients and calories!');
+            alert('Failed to update portion!');
         }
     };
     
@@ -278,27 +289,26 @@ const Meals = () => {
                                 {showDetails[recipe.id] && (
                                  <>
                                 <h5>Nutritional values:</h5>
-                                <ul className={styles.calories}>
-                                {recipe.calories.split(',').map((calorie, index) => (
-                                 <li key={index}>{calorie}</li>
-                                 ))}
-                                   </ul>
-                          <div>
-                  <h6><strong>Portion:</strong></h6>
-                  <input
-                className={styles.updatePortionInput}
-                type="number"
-                value={portionValues[recipe.id] || 1} 
-                min="1"
-                onChange={(e) => handlePortionInputChange(recipe.id, e.target.value)}
-                />
-               <button
-                onClick={() => handlePortionChange(recipe.id)}
-                className={styles.updatePortionButton}
-            >
-                Update Portion
-               </button>
-              </div>
+                                <p>Proteins: {recipe.protein}g</p>
+                                <p>Fats: {recipe.fats}g</p>
+                                <p>Carbohydrates: {recipe.carbohydrates}g</p>
+                                <p>Calories: {recipe.calories} kcal</p>
+                                <div>
+                                        <h6><strong>Portion:</strong></h6>
+                                        <input
+                                            className={styles.updatePortionInput}
+                                            type="number"
+                                            value={portionValues[recipe.id] || recipe.portion} // Use the recipe's portion value if not set
+                                            min="1"
+                                            onChange={(e) => handlePortionInputChange(recipe.id, e.target.value)}
+                                        />
+                                        <button
+                                            onClick={() => handlePortionChange(recipe.id)}
+                                            className={styles.updatePortionButton}
+                                        >
+                                            Update Portion
+                                        </button>
+                                    </div>
                 <button
                 className={styles.selectButton}
                     onClick={() => handleSelect(recipe)}

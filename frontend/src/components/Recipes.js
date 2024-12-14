@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -8,9 +7,12 @@ const Recipes = () => {
     const [recipeData, setRecipeData] = useState({
         name: '',
         ingredients: '',
+        protein: '',
+        carbohydrates: '',
+        fats: '',
         calories: '',
         instructions: '',
-        foodType: '', // Enum value will be set here
+        foodType: '',
         image: null,
     });
 
@@ -26,27 +28,28 @@ const Recipes = () => {
             [name]: value,
         });
     };
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            console.log('File selected:', file); // Debugging line
+            console.log('File selected:', file);
             setRecipeData({
                 ...recipeData,
-                image: file, // Assign the file to the state
+                image: file,
             });
         }
     };
-    
+
     const navigate = useNavigate();
+
     // Add Recipe
     const addRecipe = async (e) => {
         e.preventDefault();
 
         const formData = new FormData();
-        const { foodType, name, ingredients, calories, instructions, image } = recipeData;
+        const { foodType, name, ingredients, protein, carbohydrates, fats, calories, instructions, image } = recipeData;
 
-        // Append data to formData
-        formData.append('data', JSON.stringify({ foodType, name, ingredients, calories ,instructions }));
+        formData.append('data', JSON.stringify({ foodType, name, ingredients, protein, carbohydrates, fats, calories, instructions }));
         if (image) formData.append('image', image);
 
         try {
@@ -59,7 +62,9 @@ const Recipes = () => {
 
             if (response.status === 200) {
                 console.log('Recipe added:', response.data);
-                navigate('/meals'); // Redirect to /meals on success
+                setSuccessMessage(true);  // Set success message after successful submission
+                setTimeout(() => setSuccessMessage(false), 3000);  // Hide success message after 3 seconds
+                navigate('/meals');
             }
         } catch (error) {
             console.error('Error adding recipe:', error);
@@ -70,7 +75,6 @@ const Recipes = () => {
         }
     };
 
-
     return (
         <div className={styles.recipeBody}>
             <div className={styles.header}>Add Your Recipe</div>
@@ -78,8 +82,8 @@ const Recipes = () => {
             <div className={styles.Recipescontainer}>
                 <h2>Submit a New Recipe</h2>
 
-                {/* Recipe Type Dropdown */}
                 <form id="recipeForm" onSubmit={addRecipe}>
+                    {/* Recipe Type Dropdown */}
                     <label htmlFor="foodType">Select Recipe Type:</label>
                     <select
                         id="foodType"
@@ -120,17 +124,54 @@ const Recipes = () => {
                         required
                     />
                     
+                    {/* Proteins */}
+                    <label htmlFor="protein">Protein (g):</label>
+                    <input
+                        type="number"
+                        id="protein"
+                        name="protein"
+                        value={recipeData.protein}
+                        onChange={handleInputChange}
+                        placeholder="Enter protein content"
+                        required
+                    />
+
+                    {/* Carbohydrates */}
+                    <label htmlFor="carbohydrates">Carbohydrates (g):</label>
+                    <input
+                        type="number"
+                        id="carbohydrates"
+                        name="carbohydrates"
+                        value={recipeData.carbohydrates}
+                        onChange={handleInputChange}
+                        placeholder="Enter carbohydrate content"
+                        required
+                    />
+
+                    {/* Fats */}
+                    <label htmlFor="fats">Fats (g):</label>
+                    <input
+                        type="number"
+                        id="fats"
+                        name="fats"
+                        value={recipeData.fats}
+                        onChange={handleInputChange}
+                        placeholder="Enter fats content"
+                        required
+                    />
+
                     {/* Calories */}
-                    <label htmlFor="calories">Calories:</label>
-                    <textarea
+                    <label htmlFor="calories">Calories (kcal):</label>
+                    <input
+                        type="number"
                         id="calories"
                         name="calories"
                         value={recipeData.calories}
                         onChange={handleInputChange}
-                        rows="10"
-                        placeholder="List the calories here"
+                        placeholder="Enter calorie content"
                         required
                     />
+                    
                     {/* Instructions */}
                     <label htmlFor="instructions">Instructions:</label>
                     <textarea

@@ -10,6 +10,13 @@ const RecipeModal = ({ recipe, onClose }) => {
                 <img src={`http://localhost:8080/images/${recipe.imagePath}`} alt={recipe.imagePath} className={styles.modalImage} />
                 <h5>Ingredients:</h5>
                 <p>{recipe.ingredients}</p>
+                <h5>Proteins:</h5>
+<p>{recipe.proteins}</p>
+<h5>Fats:</h5>
+<p>{recipe.fats}</p>
+<h5>Carbohydrates:</h5>
+<p>{recipe.carbohydrates}</p>
+
                 <h5>Calories:</h5>
                 <p>{recipe.calories}</p>
 
