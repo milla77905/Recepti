@@ -36,8 +36,35 @@ public class Recipes {
 
     private int  portion; 
 
-    private String calories;
-
+    private double calories; // Celotne kalorije za eno porcijo
+    private double protein; // Proteini (grami na porcijo)
+    private double fats; // Maščobe (grami na porcijo)
+    private double carbohydrates; // Ogljikovi hidrati (grami na porcijo)
+    
+    public double getCalories() {
+        return calories;
+    }
+    public void setCalories(double calories) {
+        this.calories = calories;
+    }
+    public double getProtein() {
+        return protein;
+    }
+    public void setProtein(double protein) {
+        this.protein = protein;
+    }
+    public double getFats() {
+        return fats;
+    }
+    public void setFats(double fats) {
+        this.fats = fats;
+    }
+    public double getCarbohydrates() {
+        return carbohydrates;
+    }
+    public void setCarbohydrates(double carbohydrates) {
+        this.carbohydrates = carbohydrates;
+    }
     // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { 
@@ -79,9 +106,7 @@ public class Recipes {
     public int getPortion() { return portion; }
     public void setPortion(int portion) { this.portion = portion; }
 
-    public String getCalories() { return calories; }
-    public void setCalories(String calories) { this.calories = calories; }
-
+    
     public String getImagePath() { return imagePath; }
     public void setImagePath(String imagePath) { 
         if (imagePath == null || imagePath.trim().isEmpty()) {   
@@ -90,7 +115,7 @@ public class Recipes {
         this.imagePath = imagePath; }
 
     public Recipes() {}
-    public Recipes(String name, FoodType foodType, String ingredients, String instructions, String imagePath, int portion, String calories) {
+    public Recipes(String name, FoodType foodType, String ingredients, String instructions, String imagePath, int portion, double calories, double protein, double fats, double carbohydrates) {
         this.name = name;
         this.foodType = foodType;
         this.ingredients = ingredients;
@@ -98,5 +123,8 @@ public class Recipes {
         this.imagePath = imagePath;
         this.portion = portion;
         this.calories = calories;
+        this.protein = protein;
+        this.fats = fats;
+        this.carbohydrates = carbohydrates;
     }
 }
