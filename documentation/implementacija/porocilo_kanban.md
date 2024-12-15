@@ -32,6 +32,24 @@ The functionality was divided into smaller tasks based on Kanban principles. The
 - **Who**: Nora
 - **Description**: Create a function to return an updated list of nutritional values when the portion count is adjusted.
 
+### 3.4 Frontend - Displaying 'Daily Intake Guide' 
+- **Estimated Cost**: 5 points  
+- **Priority**: Medium  
+- **Who**: Miha
+- **Description**: Update the frontend to display a "Daily Intake Guide" section that shows nutritional values as percentages of the recommended daily intake. The frontend will dynamically calculate and update these percentages when the nutritional values or portion count changes.  
+
+### 3.5 Frontend - Calculating Percentage for Daily Intake Guide
+- **Estimated Cost**: 5 points  
+- **Priority**: Medium  
+- **Who**: Nora  
+- **Description**: Develop the frontend logic to calculate the percentage of each nutritional value (e.g., calories, fat, protein) relative to a standard daily recommended intake. These calculations should be triggered dynamically whenever the nutritional values or portion size changes, ensuring the displayed percentages are always accurate.
+
+### 3.6 Documentation - Kanban System  
+- **Estimated Cost**: 2 points  
+- **Priority**: Medium  
+- **Who**: Mila 
+- **Description**: Develop a comprehensive guide on how to use the Kanban system for project management. The documentation includea an overview of Kanban principles, step-by-step instructions for creating and managing tasks, and tips for optimizing workflow efficiency.
+
 ## 4. Progress Tracking
 - **Task Tracking**: Tasks are moved between columns (`ToDo`, `In Progress`, `Done`) on the Kanban board based on their status.
 - **Regular Updates**: The board is updated daily to reflect the latest progress and ensure transparency.
