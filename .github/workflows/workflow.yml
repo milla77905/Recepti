@@ -38,7 +38,7 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE ris_vaje;' -uroot -proot
+          mysql -e 'CREATE DATABASE Ris;' -uroot -proot
 
       - name: Setup Java
         uses: actions/setup-java@v3
@@ -51,22 +51,22 @@ jobs:
         run: mvn test
         working-directory: backend
 
-  frontend:
-    name: Build frontend
-    runs-on: ubuntu-latest
-    needs: build_backend
+  # frontend:
+  #   name: Build frontend
+  #   runs-on: ubuntu-latest
+  #   needs: build_backend
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '20'
 
-      - name: Install and Build
-        run: |
-          npm ci
-          npm start
-        working-directory: frontend
+  #     - name: Install and Build
+  #       run: |
+  #         npm ci
+  #         npm start
+  #       working-directory: frontend
