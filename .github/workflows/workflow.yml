@@ -1,4 +1,4 @@
-name: Java CI with Maven for backend, frontend and unit testing
+name: Java CI with Maven for backend, frontend, and unit testing
 
 on:
   push:
@@ -10,11 +10,11 @@ jobs:
   build_backend:
     name: Build backend
     runs-on: ubuntu-latest
-  
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-  
+
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
@@ -25,32 +25,48 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml -DskipTests
         working-directory: backend
+
   unit_test:
     name: Unit tests
     runs-on: ubuntu-latest
+    needs: build_backend
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
           mysql -e 'CREATE DATABASE ris_vaje;' -uroot -proot
 
-      - name: Test
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '20'
+          cache: maven
+
+      - name: Run tests
         run: mvn test
-        
+        working-directory: backend
+
   frontend:
     name: Build frontend
     runs-on: ubuntu-latest
+    needs: build_backend
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup NPM
-        uses: actions/setup-npm@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          npm-version: 20
-      - name: Build
+          node-version: '20'
+
+      - name: Install and Build
         run: |
           npm ci
           npm run dev
+        working-directory: frontend
