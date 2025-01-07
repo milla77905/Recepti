@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
-          java-version: '20'
+          java-version: '21'
           cache: maven
 
       - name: Build with Maven
@@ -44,11 +44,11 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
-          java-version: '20'
+          java-version: '21'
           cache: maven
 
       - name: Run tests
-        run: mvn test
+        run: ./mvnw test
         working-directory: backend
 
   frontend:
@@ -68,5 +68,5 @@ jobs:
       - name: Install and Build
         run: |
           npm ci
-          npm run dev
+          npm start
         working-directory: frontend
