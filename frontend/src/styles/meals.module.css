@@ -65,6 +65,7 @@
     color: #ff8c42;
 }
 
+
 .mealCard {
     background-color: #ffe5b4;
     padding: 20px;
@@ -326,15 +327,17 @@ ul, ol {
 }
 
 .exportButton {
-  margin: 10px 0;
-  padding: 10px 15px;
-  background-color: #ff8c42;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 50%;
-}
+    display: block; /* Omogoča centriranje z margin auto */
+    margin: 10px auto; /* Celo stran: navpično in vodoravno centriranje */
+    padding: 10px 15px;
+    background-color: #ff8c42;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+
 
 .exportButton:hover {
   background-color: #ed6a18;
@@ -360,3 +363,122 @@ ul, ol {
 .updatePortionButton:hover {
   background-color: #ed6a18;
 }
+
+/* Add this in your meals.module.css file */
+
+.favoriteButton {
+  font-size: 24px; /* Make the heart symbol large enough */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.favoriteButton:hover {
+  opacity: 0.8; /* Add some hover effect for better interactivity */
+}
+
+.favorited {
+  color: red; /* Change heart color when the recipe is a favorite */
+}
+
+.recipeItem {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Styling za favoriteMealCard */
+.favoriteMealCard {
+  background-color: #ffe5b4;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 20px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease-in-out; 
+  margin-left:20px;
+}
+
+/* Slika v favoriteMealCard */
+.favoriteMealCard img {
+  max-height: 220px;
+  width: 100%;
+  object-fit: cover; /* Prilagodimo sliko, da se lepo prilega */
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Naslovi in besedilo */
+.favoriteMealCard h6 {
+  font-size: 16px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.favoriteMealCard h4 {
+  font-size: 22px;
+  color: #333;
+  margin: 10px 0;
+}
+
+.favoriteMealCard p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Gumb za favorite */
+.favorite-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 10px;
+  transition: color 0.3s ease;
+}
+
+/* Hover efekt za gumb favorite */
+.favorite-btn:hover {
+  color: #ff6f00; /* Spremenite barvo ob hoverju za lepši vizualni učinek */
+}
+
+/* Toggle gumb za favorites */
+.toggleFavoritesButton {
+  background-color: orange;
+  color: white;
+  padding: 15px 20px;
+  font-size: 18px;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+/* Razporeditev za širše zaslone */
+.col-md-4 {
+  width: 30%;
+  margin-bottom: 20px;
+}
+
+/* Responsivnost za manjše zaslone */
+@media (max-width: 768px) {
+  .col-md-4 {
+      width: 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  .col-md-4 {
+      width: 100%;
+  }
+}
+
+
+
+
