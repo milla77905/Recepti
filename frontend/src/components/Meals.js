@@ -26,22 +26,21 @@ const Meals = () => {
     useEffect(() => {
         if (userEmail) {
             fetchAllRecipes();
-            fetchFavorites(); // Ensure favorites are fetched after login
+            fetchFavorites(); 
         }
     }, [userEmail]);
     
     useEffect(() => {
         const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        setFavorites(savedFavorites);
+        setFavorites(savedFavorites);  
       }, []);
-    
-      // Shrani seznam priljubljenih v localStorage
+      
       useEffect(() => {
         if (favorites.length > 0) {
           localStorage.setItem('favorites', JSON.stringify(favorites));
         }
       }, [favorites]);
-
+      
     const fetchAllRecipes = async () => {
         try {
             const response = await fetch('http://localhost:8080/recipes');
@@ -63,30 +62,35 @@ const Meals = () => {
     const handleToggleDetails = (id) => {
         setShowDetails((prev) => ({
             ...prev,
-            [id]: !prev[id], // Preklopi stanje za določen recept
+            [id]: !prev[id], 
         }));
     };
     
     const handleToggleFavorite = (recipeId) => {
-        setFavorites((prevFavorites) =>
-            prevFavorites.includes(recipeId)
-                ? prevFavorites.filter((id) => id !== recipeId)
-                : [...prevFavorites, recipeId]
-        );
-    };
+        setFavorites((prevFavorites) => {
+          const newFavorites = prevFavorites.includes(recipeId)
+            ? prevFavorites.filter((id) => id !== recipeId) 
+            : [...prevFavorites, recipeId];  
+      
+          
+          localStorage.setItem('favorites', JSON.stringify(newFavorites));
+      
+          return newFavorites; 
+        });
+      };
+      
 
 
-    // Handle selection of recipes (checkbox)
     const handleSelectRecipe = (id) => {
         setSelectedRecipes((prev) =>
             prev.includes(id) ? prev.filter((recipeId) => recipeId !== id) : [...prev, id]
         );
     };
 
-    // Update recipe
+ 
     const handleUpdate = async (id) => {
         try {
-            // Prepare the updated recipe data
+          
             const updatedRecipe = {
                 id,
                 name: selectedRecipe.name,
@@ -124,7 +128,7 @@ const Meals = () => {
         }
     };
 
-    // Handle recipe deletion
+    
     const handleDelete = async (id) => {
         const confirmed = window.confirm('Are you sure you want to delete this recipe?');
         if (confirmed) {
@@ -148,7 +152,7 @@ const Meals = () => {
         }
     };
 
-    // Handle recipe selection (clicking "Select")
+    
     const handleSelect = (recipe) => {
         setSelectedRecipe(recipe);
     };
@@ -177,27 +181,53 @@ const Meals = () => {
     };
 
     const sortRecipes = (recipes, order) => {
+        // Get favorites from localStorage
+        const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    
         const typeOrder = {
             MEAL: 1,
             BAKERY: 2,
             DESSERT: 3,
         };
-
+    
         return recipes.sort((a, b) => {
+            // Check if the recipe is a favorite by comparing IDs
+            const isAFavorite = savedFavorites.includes(a.id);
+            const isBFavorite = savedFavorites.includes(b.id);
+    
+            // Sort by favorites first
+            if (order === 'favorites') {
+                // If 'a' is a favorite and 'b' is not, 'a' comes first
+                if (isAFavorite && !isBFavorite) {
+                    return -1; // 'a' comes first
+                }
+                // If 'b' is a favorite and 'a' is not, 'b' comes first
+                else if (!isAFavorite && isBFavorite) {
+                    return 1; // 'b' comes first
+                }
+            }
+    
+            // If sorting by type (Bakery, Desserts, Meals)
             if (order === 'type') {
                 const typeA = typeOrder[a.type?.toUpperCase()] || 4;
                 const typeB = typeOrder[b.type?.toUpperCase()] || 4;
-
+    
                 if (typeA === typeB) {
-                    return a.name.localeCompare(b.name);
+                    return a.name.localeCompare(b.name); // If type is the same, sort by name
                 }
-                return typeA - typeB;
-            } else if (order === 'name') {
+                return typeA - typeB; // Otherwise, sort by type
+            }
+    
+            // If sorting by name (A-Z)
+            if (order === 'name') {
                 return a.name.localeCompare(b.name);
             }
-            return recipes;
+    
+            // Default case if order is not recognized
+            return 0;
         });
     };
+    
     
 
     const handlePortionInputChange = (recipeId, value) => {
@@ -227,11 +257,11 @@ const Meals = () => {
                 throw new Error(`Backend Error: ${errorMessage}`);
             }
 
-            const updatedData = await response.json(); // Expecting both ingredients and calories
+            const updatedData = await response.json(); 
 
             const { updatedIngredients, updatedCalories, updatedProtein, updatedFats, updatedCarbohydrates } = updatedData;
 
-            // Update recipes state with the new portion data
+           
             setRecipes((prevRecipes) =>
                 prevRecipes.map((recipe) =>
                     recipe.id === recipeId
@@ -284,7 +314,7 @@ const Meals = () => {
                 throw new Error('Failed to fetch favorite recipes.');
             }
             const data = await response.json();
-            setFavorites(data.map((recipe) => recipe.id)); // Assuming recipes have an `id` field
+            setFavorites(data.map((recipe) => recipe.id)); 
         } catch (error) {
             console.error('Error fetching favorites:', error);
         }
@@ -308,6 +338,7 @@ const Meals = () => {
                     >
                         <option value="type">Type (Bakery, Desserts, Meals)</option>
                         <option value="name">Name (A-Z)</option>
+                        <option value="favorites">Favorites first</option>
                     </select>
                 </div>
                 <div className="row">
@@ -321,7 +352,7 @@ const Meals = () => {
                                     className={styles.recipeCheckbox}
                                 />
                                  
-                                {/* Display image */}
+                               
                                 {recipe.imagePath ? (
                                   <img
                                   src={recipe.imagePath || '/meal1.jpg'} 
@@ -374,7 +405,7 @@ const Meals = () => {
                                         <input
                                             className={styles.updatePortionInput}
                                             type="number"
-                                            value={portionValues[recipe.id] || recipe.portion} // Use the recipe's portion value if not set
+                                            value={portionValues[recipe.id] || recipe.portion} 
                                             min="1"
                                             onChange={(e) => handlePortionInputChange(recipe.id, e.target.value)}
                                         />
@@ -487,33 +518,33 @@ const Meals = () => {
                     </div>
                 </div>
             )}
-                 <button
-                    onClick={toggleFavoritesVisibility}
-                    className={styles.toggleFavoritesButton}
-                    style={{
-                        marginTop: '10px',
-                        padding: '15px 20px',
-                        backgroundColor: '#ff8c42',
-                        color: 'white',
-                        fontSize: '18px',
-                        border: 'none',
-                        width: '100%', 
-                        cursor: 'pointer',
-                        textAlign: 'center',
-                    }}
-                >
-                    {showFavorites ? 'Hide Favorites' : 'Show Favorites'}
-                </button>
+                <button
+    onClick={toggleFavoritesVisibility}
+    className={styles.toggleFavoritesButton}
+    style={{
+        marginTop: '10px',
+        padding: '15px 20px',
+        backgroundColor: '#ff8c42',
+        color: 'white',
+        fontSize: '18px',
+        border: 'none',
+        width: '100%',
+        cursor: 'pointer',
+        textAlign: 'center',
+    }}
+>
+    {showFavorites ? 'Hide Favorites' : 'Show Favorites'}
+</button>
 
-                {showFavorites && (
+{showFavorites && (
     <div>
         <div className="row">
             {recipes
-                .filter((recipe) => favorites.includes(recipe.id))
+                .filter((recipe) => favorites.includes(recipe.id)) // Only show favorites
                 .map((recipe) => (
                     <div className="col-md-4" key={recipe.id}>
                         <div className={styles.favoriteMealCard}>
-                            {/* Slika */}
+                            {/* Image */}
                             {recipe.imagePath ? (
                                 <img
                                     src={recipe.imagePath || '/meal1.jpg'}
@@ -526,15 +557,15 @@ const Meals = () => {
                                 <p>No Image</p>
                             )}
 
-                            {/* Tip, ime in opis */}
+                            {/* Type, name, and description */}
                             <h6>{recipe.type}</h6>
                             <h4>{recipe.name}</h4>
                             <p><strong>Ingredients:</strong> {recipe.ingredients}</p>
                             <p><strong>Instructions:</strong> {recipe.instructions}</p>
 
-                            {/* Gumb za dodajanje v favorite */}
+                            {/* Favorite Toggle Button */}
                             <button
-                                onClick={() => handleToggleFavorite(recipe.id)}
+                                onClick={() => handleToggleFavorite(recipe.id)} // Toggle favorite status
                                 className={`favorite-btn ${favorites.includes(recipe.id) ? 'favorited' : ''}`}
                                 style={{
                                     color: favorites.includes(recipe.id) ? 'red' : 'gray',
@@ -548,6 +579,7 @@ const Meals = () => {
         </div>
     </div>
 )}
+
             {/* Footer */}
             <footer className={styles.readmoreFooterDark}>
                 <div className={`container ${styles.container}`}>
